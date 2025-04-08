@@ -57,7 +57,15 @@ const HomePage = () => {
               aspects of academic writing, from essays to dissertations.
             </p>
           </div>
-          
+          <div class="col-md-4">
+            <h5>Leave a comment</h5>
+             <form action="">
+                  <input type="email" placeholder="Your email" class="form-control"><br>
+                   <textarea name="comment" id="comment" rows="" class="form-control"></textarea><br>
+                    <input type="submit" value="Submit" class="btn btn-outline-danger" class="form-control">
+
+                  </form>
+          </div>
           <div className="footer-contact">
             <h4>Contact Us</h4>
             <p>Email: essaygenie@gmail.com</p>
