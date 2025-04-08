@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { Await } from 'react-router-dom';
 import axios from 'axios'
 // import './Signup.css'; // Create a Signup.css file for styling
-
+import {useNavigate} from 'react-router-dom';
 const Signup = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -17,6 +17,7 @@ const Signup = () => {
         letter: false,
         number: false,
     });
+    const navigate = useNavigate();
 
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
@@ -117,7 +118,7 @@ const Signup = () => {
                         />
                         Send me weekly emails with free resources, teaching tips, and more.
                     </label>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" onClick={() =>navigate('/Navbar', {state:{Signup}}}}Sign Up</button>
                     <p className="tos-text">
                         Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms">Terms of Service</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>.
                         By creating an account, you agree to our <a href="https://www.teacherspayteachers.com/Terms-of-Service">Terms of Service</a> and <a href="https://privacy.teacherspayteachers.com/policies">Privacy Policy</a>.
