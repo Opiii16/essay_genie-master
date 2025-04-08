@@ -1,0 +1,61 @@
+/* Universities.css */
+.basic-carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Adjust as needed */
+    max-width: 600px; /* Example max width */
+    margin: 0 auto;
+  }
+  
+  .carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: calc(100% * 15); /* Assuming 15 images */
+  }
+  
+  .carousel-image {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover; /* Or contain, depending on your preference */
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .carousel-button.prev {
+    left: 10px;
+  }
+  
+  .carousel-button.next {
+    right: 10px;
+  }
+  
+  .carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .dot.active {
+    background-color: #717171;
+  }

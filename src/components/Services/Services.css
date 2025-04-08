@@ -1,0 +1,69 @@
+/* Services Dropdown */
+.services-dropdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 1.5rem;
+  width: 800px;
+  max-width: 90vw;
+  background: white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-section {
+  margin-bottom: 0;
+}
+
+.dropdown-heading {
+  color: #0077b6;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+}
+
+.dropdown-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-list li {
+  margin-bottom: 0.6rem;
+}
+
+.dropdown-link {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  display: block;
+  padding: 0.3rem 0;
+  position: relative;
+}
+
+.dropdown-link:hover {
+  color: #0077b6;
+  padding-left: 5px;
+}
+
+.new-badge {
+  background: #ff4757;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .services-dropdown {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    width: 100%;
+  }
+}

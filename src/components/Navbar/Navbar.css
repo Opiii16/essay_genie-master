@@ -1,0 +1,350 @@
+/* Navbar.css */
+.app-navbar {
+  background-color: #0baae9; /* Sky blue */
+  padding: 0.8rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.navbar-logo-icon {
+  height: 60px;
+  width: auto;
+}
+
+.nav-logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0 1rem;
+  position: relative;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+}
+
+.dropdown-arrow {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.services-dropdown {
+  left: -50px;
+}
+
+.resources-dropdown {
+  left: -80px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  width: 200px;
+  outline: none;
+  transition: width 0.3s;
+}
+
+.search-input:focus {
+  width: 250px;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.auth-cart-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cart-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.auth-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light {
+  border: 1px solid #fff;
+  color: #fff;
+  background: transparent;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-light {
+  background: #fff;
+  color: #87CEEB;
+}
+
+.btn-light:hover {
+  background: #f8f9fa;
+}
+
+.signup-btn {
+  font-weight: 600;
+}
+
+/* Active states */
+.nav-link.active {
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .navbar-menu {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #87CEEB;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 2rem;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-menu.open {
+    transform: translateY(0);
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-item {
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .auth-cart-container {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+}
+/* Update the dropdown menu styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 1rem;
+  min-width: 200px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column; /* This makes the dropdown vertical */
+  gap: 0.8rem; /* Space between dropdown items */
+}
+
+/* Update the services dropdown specifically */
+.services-dropdown {
+  left: -50px;
+  /* Ensure content stacks vertically */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style for individual dropdown items */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #333;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.dropdown-item:hover {
+  background-color: #f0f8ff; /* Light sky blue background on hover */
+  color: #0066cc;
+}
+
+/* If you have icons in your dropdown */
+.dropdown-item i {
+  margin-right: 0.5rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Keep the main navigation horizontal */
+.navbar-nav {
+  display: flex;
+  flex-direction: row; /* This ensures main nav stays horizontal */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Mobile styles remain the same */
+@media (max-width: 992px) {
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  /* ... rest of your mobile styles ... */
+}
