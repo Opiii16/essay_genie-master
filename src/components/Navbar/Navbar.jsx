@@ -5,6 +5,7 @@ import Resources from '../Resources';
 import MobileMenuButton from './MobileMenuButton';
 import './Navbar.css';
 
+
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [showServices, setShowServices] = useState(false);
@@ -27,6 +28,7 @@ const Navbar = () => {
     setShowResources(!showResources);
     if (showServices) setShowServices(false);
   };
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
