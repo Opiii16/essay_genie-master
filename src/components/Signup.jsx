@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import { Await } from 'react-router-dom';
 import axios from 'axios'
 // import './Signup.css'; // Create a Signup.css file for styling
-import {useNavigate} from 'react-router-dom';
+
 const Signup = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -30,45 +30,76 @@ const Signup = () => {
             number: /[0-9]/.test(newPassword),
         });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading("Please wait as we process your details")
+        setLoading("Please wait as we process your details");
+        setSuccess("");
+        setError("");
+    
+        try {
+            const data = new FormData();
+            data.append("firstname", firstName);
+            data.append("lastname", lastName);
+            data.append("email", email);
+            data.append("password", password);
+    
+            const response = await axios.post("https://oprahjane16.pythonanywhere.com/api/signup", data);
+    
+            setLoading("");
+            setSuccess(response.data.Success || "Signup successful!");
+    
+            // Reset form
+            setFirstName('');
+            setLastName('');
+            setEmail('');
+            setPassword('');
+        } catch (error) {
+            setSuccess("");
+            setLoading("");
+            setError("Oops, something happened. Please try again.");
+        }
+    };
+    
+
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading("Please wait as we process your details")
         
 
 
-        try{
-            const data = new FormData()
-            data.append("firstname",firstname)
-            data.append("lastname",lastname)
-            data.append("email",email)
-            data.append("password",password)
+    //     try{
+    //         const data = new FormData()
+    //         data.append("firstname",firstname)
+    //         data.append("lastname",lastname)
+    //         data.append("email",email)
+    //         data.append("password",password)
       
-            const response = await axios.post("https://oprahjane16.pythonanywhere.com/api/signup",data)
+    //         const response = await axios.post("https://oprahjane16.pythonanywhere.com/api/signup",data)
       
-            setLoading("")
-            setSuccess(response.data.Success)
+    //         setLoading("")
+    //         setSuccess(response.data.Success)
       
             
-            setUsername("")
-            setEmail("")
-            setPassword("")
-            setPhone("")
+    //         setUsername("")
+    //         setEmail("")
+    //         setPassword("")
+    //         setPhone("")
       
-          }catch(error){
-            setSuccess("")
-            setLoading("")
-            setError("Ooops sth Happened")
+    //       }catch(error){
+    //         setSuccess("")
+    //         setLoading("")
+    //         setError("Ooops sth Happened")
       
-          }
-        // Here you would typically send the signup data to your backend
-        console.log({ firstName, lastName, email, password, subscribe });
-        // Reset the form if needed
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-    };
+    //       }
+    //     // Here you would typically send the signup data to your backend
+    //     console.log({ firstName, lastName, email, password, subscribe });
+    //     // Reset the form if needed
+    //     setFirstName('');
+    //     setLastName('');
+    //     setEmail('');
+    //     setPassword('');
+    // };
 
     return (
         <div className="signup-container">
@@ -118,7 +149,7 @@ const Signup = () => {
                         />
                         Send me weekly emails with free resources, teaching tips, and more.
                     </label>
-                    <button type="submit" onClick={() =>navigate('/Navbar', {state:{Signup}}}}Sign Up</button>
+                    <button type="submit">Sign Up</button>
                     <p className="tos-text">
                         Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms">Terms of Service</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>.
                         By creating an account, you agree to our <a href="https://www.teacherspayteachers.com/Terms-of-Service">Terms of Service</a> and <a href="https://privacy.teacherspayteachers.com/policies">Privacy Policy</a>.

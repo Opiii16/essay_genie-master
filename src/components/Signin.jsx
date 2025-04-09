@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // import './Signin.css'; // Create a Signin.css file for styling
 
 const Signin = () => {
     const [emailUsername, setEmailUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading,setLoading]= useState("")
+    const [success,setSuccess] = useState("")
+    const [error,setError] =useState("")
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate();
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();

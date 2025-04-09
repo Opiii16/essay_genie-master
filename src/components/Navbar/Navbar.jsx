@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import Services from '../Services';
 import Resources from '../Resources';
 import MobileMenuButton from './MobileMenuButton';
+import { useNavigate } from 'react-router-dom';
+import Signup from '../Signup';
+import Signin from '../Signin';
 import './Navbar.css';
-import {useNavigate} from 'react-router-dom';
-
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -13,6 +14,8 @@ const Navbar = () => {
   const [showResources, setShowResources] = useState(false);
   const [cartCount] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -29,7 +32,6 @@ const Navbar = () => {
     setShowResources(!showResources);
     if (showServices) setShowServices(false);
   };
-  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -121,10 +123,10 @@ const Navbar = () => {
               </Link>
               
               <div className="auth-buttons">
-                <Link to="/signin" className="btn btn-outline-light auth-btn">
+                <Link to="/signin" className="btn btn-outline-light auth-btn"  onClick={() =>navigate('/Navbar', {state:{Signin}})}>
                   Sign In
                 </Link>
-                <Link to="/signup" className="btn btn-light auth-btn signup-btn">
+                <Link to="/signup" className="btn btn-light auth-btn signup-btn"  onClick={() =>navigate('/Navbar', {state:{Signup}})}>
                   Sign Up
                 </Link>
               </div>

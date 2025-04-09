@@ -60,9 +60,9 @@ const HomePage = () => {
           <div class="col-md-4">
             <h5>Leave a comment</h5>
              <form action="">
-                  <input type="email" placeholder="Your email" class="form-control"><br>
-                   <textarea name="comment" id="comment" rows="" class="form-control"></textarea><br>
-                    <input type="submit" value="Submit" class="btn btn-outline-danger" class="form-control">
+                  <input type="email" placeholder="Your email" class="form-control"/> <br />
+                   <textarea name="comment" id="comment" rows="" class="form-control"/> <textarea ></textarea>
+                    <input type="submit" value="Submit" class=" form-control   btn btn-outline-danger"/>
 
                   </form>
           </div>
@@ -73,13 +73,13 @@ const HomePage = () => {
               <h4>Contact Us</h4>
               < h6> <b>Phone N.o</b></h6>
                <p>+254735709392/+254798976120</p>
-                      <img src="/assets/images/in.png" alt="instagram" height="40px" width="40px">
+                      <img src="/assets/images/in.png" alt="instagram" height="40px" width="40px"/>
                         <h4>Instagram: @EssayGenie</h4>
-                        <img src="/assets/images/x.png" alt="Twitter" height="40px" width="40px">
+                        <img src="/assets/images/x.png" alt="Twitter" height="40px" width="40px"/>
                           <h4>Twitter: @EssayGenie</h4>
                             <h6>Incase of any questions reach us at:</h6>
                             <p>essaygenie@gmail.com</p>
-                            <img src="/assets/images/essaygenie.png" alt="logo" height="100px" width="=250px">                                                                                                                          
+                            <img src="/assets/images/essaygenie.png" alt="logo" height="100px" width="=250px"/>                                                                                                                          
               </div>
           </div>
         </div>
