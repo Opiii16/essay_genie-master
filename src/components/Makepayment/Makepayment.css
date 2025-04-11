@@ -1,0 +1,21 @@
+/* Makepayment.css */
+.payment-card {
+    border-radius: 10px;
+    border: none;
+  }
+  
+  .payment-card .form-label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .payment-card .btn-success {
+    background-color: #28a745;
+    border: none;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  .payment-card .btn-success:hover {
+    background-color: #218838;
+  }
