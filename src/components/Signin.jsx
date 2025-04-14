@@ -1,69 +1,59 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import './Signin.css'; // Create a Signin.css file for styling
 
 const Signin = () => {
-    const [emailUsername, setEmailUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading,setLoading]= useState("")
-    const [success,setSuccess] = useState("")
-    const [error,setError] =useState("")
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState("");
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
-
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading("Please wait...")
-        try{
-          //create form data
-          const data =new FormData()
-          data.append("email",email)
-          data.append("password",password)
-    
-          const response =await axios.post("https://oprahjane16.pythonanywhere.com/api/signin",data)
-    
-          setLoading("")
-    
-          if(response.data.user){
-            setSuccess("Login Success")
-    
-    
-            //to do save the details to local storage
-            localStorage.setItem("user",JSON.stringify(response.data.user))
-    
-            navigate('/')
-    
-          }else{
-            setError("Login Failed")
-          }
-        }
-        catch(error){
-          setLoading("")
-          setError("Something went wrong!")
-        }
-    
-    
-      }
-    
-        // Here you would typically send the signin data to your backend
-        console.log({ emailUsername, password });
-        // Reset the form if needed
-        setEmailUsername('');
-        setPassword('');
+        setLoading("Please wait...");
+        setError("");
+        setSuccess("");
 
+        try {
+            const data = new FormData();
+            data.append("email", email);
+            data.append("password", password);
+
+            const response = await axios.post(
+                "https://oprahjane16.pythonanywhere.com/api/signin",
+                data
+            );
+
+            setLoading("");
+
+            if (response.data.user) {
+                setSuccess("Login Success");
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+                navigate('/');
+            } else {
+                setError("Login Failed");
+            }
+        } catch (error) {
+            setLoading("");
+            setError("Something went wrong!");
+        }
+    };
 
     return (
         <div className="signin-container">
             <div className="signin-form-container">
                 <h2>Log in</h2>
+                {loading && <p className="loading">{loading}</p>}
+                {error && <p className="error">{error}</p>}
+                {success && <p className="success">{success}</p>}
                 <form onSubmit={handleSubmit} className="signin-form">
                     <input
                         type="text"
-                        placeholder="Email or username"
-                        value={emailUsername}
-                        onChange={(e) => setEmailUsername(e.target.value)}
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <input

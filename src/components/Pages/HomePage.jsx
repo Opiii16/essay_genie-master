@@ -71,12 +71,12 @@ const HomePage = () => {
             <p>Email: essaygenie@gmail.com</p>
             <div className="social-links">
               <h4>Contact Us</h4>
-              < h6> <b>Phone N.o</b></h6>
-               <p>+254735709392/+254798976120</p>
+              {/* < h6> <b>Phone N.o</b></h6>
+               <p>+254735709392/+254798976120</p> */}
                       <img src="/assets/images/in.png" alt="instagram" height="40px" width="40px"/>
-                        <h6>Instagram: @EssayGenie</h6>
+                        {/* <h6>Instagram: @EssayGenie</h6> */}
                         <img src="/assets/images/x.png" alt="Twitter" height="40px" width="40px"/>
-                          <h6>Twitter: @EssayGenie</h6>
+                          {/* <h6>Twitter: @EssayGenie</h6> */}
                             <h6>Incase of any questions reach us at:</h6>
                             <p>essaygenie@gmail.com</p>
                             {/* <img src="/assets/images/essaygenie.png" alt="logo" height="100px" width="=250px"/>                                                                                                                           */}

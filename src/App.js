@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './components/Pages/HomePage.jsx';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
 import ServicesPage from './components/Pages/ServicesPage.jsx';
 import ResourcesPage from './components/Pages/ResourcesPage.jsx';
 import EssayServicePage from './components/Pages/services/EssayServicePage.jsx';
@@ -26,6 +28,8 @@ function App() {
               <Route path="essays" element={<EssayServicePage />} />
               <Route path="research-papers" element={<ResearchPaperServicePage />} />
             </Route>
+             <Route path='/Signin' Component={Signin}></Route>
+             <Route path='/Signup' Component={Signup}></Route>
             
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/tutors" element={<FeaturedTutorsPage />} />

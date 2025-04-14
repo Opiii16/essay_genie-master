@@ -123,10 +123,10 @@ const Navbar = () => {
               </Link>
               
               <div className="auth-buttons">
-                <Link to="/signin" className="btn btn-outline-light auth-btn"  onClick={() =>navigate('/Navbar', {state:{Signin}})}>
+                <Link to="/signin" className="btn btn-outline-light auth-btn"  onClick={() =>navigate('/Signin', {state:{Signin}})}>
                   Sign In
                 </Link>
-                <Link to="/signup" className="btn btn-light auth-btn signup-btn"  onClick={() =>navigate('/Navbar', {state:{Signup}})}>
+                <Link to="/signup" className="btn btn-light auth-btn signup-btn"  onClick={() =>navigate('/Signup', {state:{Signup}})}>
                   Sign Up
                 </Link>
               </div>
