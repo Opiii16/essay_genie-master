@@ -1,163 +1,174 @@
 import React, { useState } from 'react';
-// import { Await } from 'react-router-dom';
-import axios from 'axios'
-// import './Signup.css'; // Create a Signup.css file for styling
+import axios from 'axios';
+import './Signup.css';
 
 const Signup = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading,setLoading]= useState("")
-    const [success,setSuccess] = useState("")
-    const [error,setError] =useState("")
-    const [subscribe, setSubscribe] = useState(true); // Default to checked
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        subscribe: true
+    });
+    const [loading, setLoading] = useState("");
+    const [success, setSuccess] = useState("");
+    const [error, setError] = useState("");
     const [passwordCriteria, setPasswordCriteria] = useState({
         length: false,
         letter: false,
         number: false,
     });
-    
 
-    const handlePasswordChange = (e) => {
-        const newPassword = e.target.value;
-        setPassword(newPassword);
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
 
-        // Update password criteria
-        setPasswordCriteria({
-            length: newPassword.length >= 8,
-            letter: /[a-zA-Z]/.test(newPassword),
-            number: /[0-9]/.test(newPassword),
-        });
+        if (name === 'password') {
+            setPasswordCriteria({
+                length: value.length >= 8,
+                letter: /[a-zA-Z]/.test(value),
+                number: /[0-9]/.test(value),
+            });
+        }
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading("Please wait as we process your details");
         setSuccess("");
         setError("");
-    
+
         try {
             const data = new FormData();
-            data.append("firstname", firstName);
-            data.append("lastname", lastName);
-            data.append("email", email);
-            data.append("password", password);
-    
-            const response = await axios.post("https://oprahjane16.pythonanywhere.com/api/signup", data);
-    
+            data.append("firstname", formData.firstName);
+            data.append("lastname", formData.lastName);
+            data.append("email", formData.email);
+            data.append("password", formData.password);
+
+            const response = await axios.post(
+                "https://oprahjane16.pythonanywhere.com/api/signup", 
+                data
+            );
+
             setLoading("");
             setSuccess(response.data.Success || "Signup successful!");
-    
+            
             // Reset form
-            setFirstName('');
-            setLastName('');
-            setEmail('');
-            setPassword('');
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                subscribe: true
+            });
         } catch (error) {
-            setSuccess("");
             setLoading("");
-            setError("Oops, something happened. Please try again.");
+            setError(error.response?.data?.message || "Oops, something happened. Please try again.");
         }
     };
-    
-
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading("Please wait as we process your details")
-        
-
-
-    //     try{
-    //         const data = new FormData()
-    //         data.append("firstname",firstname)
-    //         data.append("lastname",lastname)
-    //         data.append("email",email)
-    //         data.append("password",password)
-      
-    //         const response = await axios.post("https://oprahjane16.pythonanywhere.com/api/signup",data)
-      
-    //         setLoading("")
-    //         setSuccess(response.data.Success)
-      
-            
-    //         setUsername("")
-    //         setEmail("")
-    //         setPassword("")
-    //         setPhone("")
-      
-    //       }catch(error){
-    //         setSuccess("")
-    //         setLoading("")
-    //         setError("Ooops sth Happened")
-      
-    //       }
-    //     // Here you would typically send the signup data to your backend
-    //     console.log({ firstName, lastName, email, password, subscribe });
-    //     // Reset the form if needed
-    //     setFirstName('');
-    //     setLastName('');
-    //     setEmail('');
-    //     setPassword('');
-    // };
 
     return (
-        <div className="signup-container">
-            <div className="signup-form-container">
-                <h2>Sign Up for Free</h2>
+        <div className="page-container">
+            <div className="form-container">
+                <h2 className="form-title">Create Your Account</h2>
+                <p className="form-subtitle">Join us to get started</p>
+                
+                {loading && <p className="status-message loading">{loading}</p>}
+                {error && <p className="status-message error">{error}</p>}
+                {success && <p className="status-message success">{success}</p>}
+
                 <form onSubmit={handleSubmit} className="signup-form">
                     <div className="name-inputs">
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                name="firstName"
+                                placeholder="First Name"
+                                value={formData.firstName}
+                                onChange={handleChange}
+                                className="form-input"
+                                required
+                            />
+                        </div>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                name="lastName"
+                                placeholder="Last Name"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                className="form-input"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="input-group">
                         <input
-                            type="text"
-                            placeholder="First Name"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required
-                        />
-                        <input
-                            type="text"
-                            placeholder="Last Name"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="form-input"
                             required
                         />
                     </div>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
-                    <div className="password-criteria">
-                        <p className={passwordCriteria.length ? 'valid' : 'invalid'}>Minimum 8 characters</p>
-                        <p className={passwordCriteria.letter ? 'valid' : 'invalid'}>At least one letter</p>
-                        <p className={passwordCriteria.number ? 'valid' : 'invalid'}>At least one number</p>
-                    </div>
-                    <label className="subscribe-label">
+
+                    <div className="input-group">
                         <input
-                            type="checkbox"
-                            checked={subscribe}
-                            onChange={() => setSubscribe(!subscribe)}
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="form-input"
+                            required
                         />
-                        Send me weekly emails with free resources, teaching tips, and more.
-                    </label>
-                    <button type="submit">Sign Up</button>
-                    <p className="tos-text">
-                        Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms">Terms of Service</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>.
-                        By creating an account, you agree to our <a href="https://www.teacherspayteachers.com/Terms-of-Service">Terms of Service</a> and <a href="https://privacy.teacherspayteachers.com/policies">Privacy Policy</a>.
+                        <div className="password-criteria">
+                            <p className={passwordCriteria.length ? 'valid' : 'invalid'}>
+                                ✓ Minimum 8 characters
+                            </p>
+                            <p className={passwordCriteria.letter ? 'valid' : 'invalid'}>
+                                ✓ At least one letter
+                            </p>
+                            <p className={passwordCriteria.number ? 'valid' : 'invalid'}>
+                                ✓ At least one number
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="checkbox-group">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="subscribe"
+                                checked={formData.subscribe}
+                                onChange={handleChange}
+                            />
+                            <span>Send me weekly emails with free resources</span>
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        className="submit-button" 
+                        disabled={loading}
+                    >
+                        {loading ? "Creating account..." : "Sign Up"}
+                    </button>
+
+                    <p className="login-link">
+                        Already have an account? <a href="/login">Sign in</a>
+                    </p>
+
+                    <p className="legal-text">
+                        Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms" className="legal-link">Terms</a> and <a href="https://policies.google.com/privacy" className="legal-link">Privacy</a>.
                     </p>
                 </form>
-                <p className="login-link">
-                    Already have an account? <a href="/login">Sign in</a>
-                </p>
             </div>
         </div>
     );
