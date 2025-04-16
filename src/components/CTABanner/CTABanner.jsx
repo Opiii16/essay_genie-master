@@ -8,8 +8,8 @@ const CTABanner = () => {
   const slides = [
     // Original slide as the first item
     {
-      desktopImage: "https://cms-assets.teacherspayteachers.com/cdn-cgi/image/AboutTPT_bg_desktop_2-3.jpg",
-      mobileImage: "https://cms-assets.teacherspayteachers.com/AboutTPT_bg_mobile_2-2.jpg",
+      desktopImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      mobileImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
       title: "Where extraordinary teachers share their most innovative ideas",
       subtitle: "WELCOME TO ESSAYGENIE",
       cta: "Explore Now",

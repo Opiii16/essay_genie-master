@@ -44,6 +44,10 @@ const Signin = () => {
             <div className="signin-form-container">
                 <h2>Log in</h2>
                 <form onSubmit={handleSubmit} className="signin-form">
+                    {loading && <p className="text-info">{loading}</p>}
+                    {success && <p className="text-success">{success}</p>}
+                    {error && <p className="text-danger">{error}</p>}
+
                     <input
                         type="text"
                         placeholder="Email or username"

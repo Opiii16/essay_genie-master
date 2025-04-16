@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import HomePage from './components/Pages/HomePage.jsx';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import ServicesPage from './components/Pages/ServicesPage.jsx';
 import ResourcesPage from './components/Pages/ResourcesPage.jsx';
 import EssayServicePage from './components/Pages/services/EssayServicePage.jsx';

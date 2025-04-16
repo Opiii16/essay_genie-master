@@ -1,3 +1,4 @@
+/* Base Styles */
 .page-container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -11,11 +12,11 @@
   font-size: 2.2rem;
 }
 
-/* Tutors Section */
+/* Sections */
 .tutors-section {
   margin: 3rem 0;
   text-align: center;
-  background-color: #fff;
+  background-color: #0feee3;
 }
 
 .tutors-section h2 {
@@ -23,13 +24,13 @@
   margin-bottom: 1rem;
 }
 
-/* Subjects Section */
 .subjects-section {
   padding: 4rem 2rem;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: #09cde7;
 }
 
+/* Cards */
 .subjects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -60,7 +61,6 @@
   margin-bottom: 1rem;
 }
 
-/* Services Section */
 .service-card {
   border: none;
   transition: transform 0.3s ease;
@@ -74,7 +74,7 @@
   padding-left: 0;
 }
 
-/* Home Page Styles */
+/* Layout */
 .home-page {
   display: flex;
   flex-direction: column;
@@ -85,16 +85,15 @@
 .essay-genie-footer {
   background-color: #2c3e50;
   color: white;
-  padding: 2rem 1.5rem 0.5rem;
-  margin-top: auto;
+  padding: 2rem 1.5rem 0.5rem; /* Reduced padding */
 }
 
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  max-width: 1100px;
-  margin: 0 auto 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem; /* Reduced gap */
+  max-width: 1200px;
+  margin: 0 auto 1.5rem; /* Reduced margin */
 }
 
 .footer-brand {
@@ -104,67 +103,38 @@
 }
 
 .footer-logo {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 0.8rem;
-}
-
-.footer-brand img {
-  max-height: 60px;
+  width: 50px; /* Reduced size */
+  height: 50px; /* Reduced size */
+  margin-bottom: 0.8rem; /* Reduced margin */
 }
 
 .footer-about p,
 .footer-contact p {
-  margin: 0.4rem 0;
+  margin: 0.4rem 0; /* Reduced margin */
   line-height: 1.5;
-  font-size: 0.9rem;
-  color: #adb5bd;
 }
 
 .social-links {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin-top: 0.8rem;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.8rem; /* Reduced margin */
 }
 
 .social-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
 }
 
 .social-links a:hover {
   text-decoration: underline;
 }
 
-.social-icon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.social-links img:hover {
-  transform: scale(1.1);
-}
-
-.footer-contact {
-  color: #adb5bd;
-}
-
 .footer-copyright {
   text-align: center;
-  padding-top: 1.5rem;
+  padding-top: 1.5rem; /* Reduced padding */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 2rem;
-  font-size: 0.85rem;
-  color: #6c757d;
+  margin-top: 1.5rem; /* Reduced margin */
 }
 
 /* Responsive Adjustments */
@@ -174,14 +144,109 @@
     margin-bottom: 1.5rem;
   }
 
+  .essay-genie-footer {
+    padding: 1.5rem 1rem 0.5rem;
+  }
+  
+  .footer-content {
+    gap: 1rem;
+  }
+  
   .footer-brand,
   .footer-about,
   .footer-contact {
+    align-items: center;
     text-align: center;
-    margin-bottom: 2rem;
   }
 
-  .social-links {
-    justify-content: center;
+  .footer-logo {
+    margin: 0 auto 0.8rem;
   }
 }
+.btn-info {
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-info:hover {
+  background-color: #0dcaf0;
+  color: white;
+}
+
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+/* Footer */
+.essay-genie-footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.essay-genie-footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.essay-genie-footer .footer-section {
+  flex: 1 1 200px;
+}
+
+.essay-genie-footer h5 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.essay-genie-footer p,
+.essay-genie-footer a {
+  color: white;
+  margin: 0.3rem 0;
+  text-decoration: none;
+}
+
+.essay-genie-footer a:hover {
+  text-decoration: underline;
+}
+
+.essay-genie-footer .social-links {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.essay-genie-footer .social-links img {
+  height: 24px;
+  width: 24px;
+}
+
+/* Copyright */
+.essay-genie-footer .copyright {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.5rem;
+}
+.essay-genie-footer {
+  font-size: 0.9rem;
+}
+
+.essay-genie-footer h6 {
+  font-size: 1rem;
+}
+
+.essay-genie-footer input,
+.essay-genie-footer textarea {
+  font-size: 0.85rem;
+}
+

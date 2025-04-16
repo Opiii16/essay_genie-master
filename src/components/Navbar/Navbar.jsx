@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Services from '../Services';
 import Resources from '../Resources';
 import MobileMenuButton from './MobileMenuButton';
-import { useNavigate } from 'react-router-dom';
-import Signup from '../Signup';
-import Signin from '../Signin';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -15,7 +12,6 @@ const Navbar = () => {
   const [cartCount] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -36,11 +32,6 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
-  };
-   const [showSignup, setShowSignup] = useState(false);
-
-  const handleSignupClick = () => {
-    setShowSignup(true);
   };
 
   return (
@@ -70,8 +61,10 @@ const Navbar = () => {
                   Services <span className="dropdown-arrow">&#9660;</span>
                 </button>
                 {showServices && (
-                  <div className="dropdown-menu services-dropdown">
-                    <Services />
+                  <div className="dropdown-menu services-dropdown show">
+                    <div className="dropdown-content">
+                      <Services />
+                    </div>
                   </div>
                 )}
               </li>
@@ -84,8 +77,10 @@ const Navbar = () => {
                   Resources <span className="dropdown-arrow">&#9660;</span>
                 </button>
                 {showResources && (
-                  <div className="dropdown-menu resources-dropdown">
-                    <Resources />
+                  <div className="dropdown-menu resources-dropdown show">
+                    <div className="dropdown-content">
+                      <Resources />
+                    </div>
                   </div>
                 )}
               </li>
@@ -128,10 +123,10 @@ const Navbar = () => {
               </Link>
               
               <div className="auth-buttons">
-                <Link to="/signin" className="btn btn-outline-light auth-btn"  onClick={() =>navigate('/Signin', {state:{Signin}})}>
+                <Link to="/signin" className="btn btn-outline-light auth-btn" onClick={() => navigate('/Signin')}>
                   Sign In
                 </Link>
-                <Link to="/signup" className="btn btn-light auth-btn signup-btn"  onClick={() =>navigate('/Signup', {state:{Signup}})}>
+                <Link to="/signup" className="btn btn-light auth-btn signup-btn" onClick={() => navigate('/Signup')}>
                   Sign Up
                 </Link>
               </div>
@@ -139,16 +134,8 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div>
-      {/* Your existing content */}
-      <button onClick={handleSignupClick}>Sign Up</button>
-      
-      {/* Conditionally render the Signup component */}
-      {showSignup && <Signup onClose={() => setShowSignup(false)} />}
-    </div>
     </nav>
   );
-  
 };
 
 export default Navbar;

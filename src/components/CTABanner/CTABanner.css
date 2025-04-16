@@ -55,7 +55,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 1rem;
-  color: #fff;
+  color:black;
 }
 
 .cta-text h2 {
@@ -179,7 +179,7 @@
   letter-spacing: 2px;
   margin-bottom: 1rem;
   text-transform: uppercase;
-  color: #fff;
+  color:black;
 }
 
 .cta-text h2 {
@@ -225,7 +225,7 @@
 .carousel-arrow {
   background: rgba(255, 255, 255, 0.3);
   border: none;
-  color: white;
+  color: black;
   font-size: 2rem;
   width: 50px;
   height: 50px;
