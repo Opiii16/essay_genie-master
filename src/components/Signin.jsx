@@ -3,57 +3,52 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Signin = () => {
-    const [email, setEmail] = useState('');
+    const [emailUsername, setEmailUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState("");
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
+    const [loading, setLoading] = useState('');
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading("Please wait...");
-        setError("");
-        setSuccess("");
-
+        setLoading('Please wait...');
         try {
             const data = new FormData();
-            data.append("email", email);
-            data.append("password", password);
+            data.append('email', emailUsername); // assuming your backend handles both email or username
+            data.append('password', password);
 
-            const response = await axios.post(
-                "https://oprahjane16.pythonanywhere.com/api/signin",
-                data
-            );
+            const response = await axios.post('https://oprahjane16.pythonanywhere.com/api/signin', data);
 
-            setLoading("");
+            setLoading('');
 
             if (response.data.user) {
-                setSuccess("Login Success");
-                localStorage.setItem("user", JSON.stringify(response.data.user));
+                setSuccess('Login Success');
+                localStorage.setItem('user', JSON.stringify(response.data.user));
                 navigate('/');
             } else {
-                setError("Login Failed");
+                setError('Login Failed');
             }
         } catch (error) {
-            setLoading("");
-            setError("Something went wrong!");
+            setLoading('');
+            setError('Something went wrong!');
         }
+
+        console.log({ emailUsername, password });
+        setEmailUsername('');
+        setPassword('');
     };
 
     return (
         <div className="signin-container">
             <div className="signin-form-container">
                 <h2>Log in</h2>
-                {loading && <p className="loading">{loading}</p>}
-                {error && <p className="error">{error}</p>}
-                {success && <p className="success">{success}</p>}
                 <form onSubmit={handleSubmit} className="signin-form">
                     <input
                         type="text"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email or username"
+                        value={emailUsername}
+                        onChange={(e) => setEmailUsername(e.target.value)}
                         required
                     />
                     <input
@@ -74,6 +69,10 @@ const Signin = () => {
                         Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms">Terms of Service</a> and <a href="https://policies.google.com/privacy">Privacy Policy</a>.
                     </p>
                 </form>
+
+                <p className="legal-text">
+                    Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms" className="legal-link">Terms</a> and <a href="https://policies.google.com/privacy" className="legal-link">Privacy</a>.
+                </p>
             </div>
         </div>
     );

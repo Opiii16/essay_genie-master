@@ -37,6 +37,11 @@ const Navbar = () => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
   };
+   const [showSignup, setShowSignup] = useState(false);
+
+  const handleSignupClick = () => {
+    setShowSignup(true);
+  };
 
   return (
     <nav className="app-navbar">
@@ -134,8 +139,16 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      <div>
+      {/* Your existing content */}
+      <button onClick={handleSignupClick}>Sign Up</button>
+      
+      {/* Conditionally render the Signup component */}
+      {showSignup && <Signup onClose={() => setShowSignup(false)} />}
+    </div>
     </nav>
   );
+  
 };
 
 export default Navbar;

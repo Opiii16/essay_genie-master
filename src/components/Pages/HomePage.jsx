@@ -1,55 +1,168 @@
-import HeroSection from '../HeroSection/HeroSection';
-import CTABanner from '../CTABanner/CTABanner';
-import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
-// import Tutors from '../components/Tutors/Tutors';
-// import Tutors from '../FeaturedTutorsPage';
-import '../Pages/Page.css';
+  import { useState } from 'react';
+  import HeroSection from '../HeroSection/HeroSection';
+  import CTABanner from '../CTABanner/CTABanner';
+  import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
+  import '../Pages/Page.css';
 
-const HomePage = () => {
-  const featuredSubjects = [
-    { name: 'Essay Writing', icon: '📝' },
-    { name: 'Research Papers', icon: '🔍' },
-    { name: 'Thesis Assistance', icon: '🎓' },
-    { name: 'Literature Reviews', icon: '📚' },
-    { name: 'Dissertation Help', icon: '✍️' },
-    { name: 'Proofreading', icon: '✅' },
-  ];
+  const HomePage = () => {
+    const [selectedSubject, setSelectedSubject] = useState(null);
 
-  return (
-    <>
-      <HeroSection />
-      <CTABanner />
-      
-      <section className="tutors-section">
-        <h2>Explore the best tutors across the globe</h2>
-        {/* <p>Bid a tutor for assistance in your studies</p> */}
-        <FeaturedTutors />
-      </section>
+    const featuredSubjects = [
+      { 
+        name: 'Essay Writing', 
+        icon: '📝',
+        services: [
+          'Argumentative Essays',
+          'Persuasive Essays',
+          'Expository Essays',
+          'Narrative Essays',
+          'Admission Essays',
+          'Scholarship Essays'
+        ]
+      },
+      { 
+        name: 'Research Papers', 
+        icon: '🔍',
+        services: [
+          'Literature Review',
+          'Methodology',
+          'Data Analysis',
+          'Results Section',
+          'Discussion',
+          'Research Proposals'
+        ]
+      },
+      { 
+        name: 'Thesis Assistance', 
+        icon: '🎓',
+        services: [
+          'Thesis Proposal',
+          'Chapter Writing',
+          'Thesis Editing',
+          'Formatting Help',
+          'Defense Preparation',
+          'Statistical Analysis'
+        ]
+      },
+      { 
+        name: 'Literature Reviews', 
+        icon: '📚',
+        services: [
+          'Annotated Bibliographies',
+          'Systematic Reviews',
+          'Meta-Analysis',
+          'Critical Reviews',
+          'Thematic Analysis',
+          'Source Evaluation'
+        ]
+      },
+      { 
+        name: 'Dissertation Help', 
+        icon: '✍️',
+        services: [
+          'Dissertation Proposal',
+          'Chapter Development',
+          'Editing Services',
+          'Formatting Assistance',
+          'Plagiarism Check',
+          'Defense Preparation'
+        ]
+      },
+      { 
+        name: 'Proofreading', 
+        icon: '✅',
+        services: [
+          'Grammar Check',
+          'Style Editing',
+          'Formatting',
+          'Citation Check',
+          'Plagiarism Scan',
+          'Final Polish'
+        ]
+      },
+    ];
 
-      <section className="subjects-section">
-        <h2>Essay Genie Specializes In</h2>
-        <div className="subjects-grid">
-          {featuredSubjects.map((subject, index) => (
-            <div key={index} className="subject-card">
-              <span className="subject-icon">{subject.icon}</span>
-              <h3>{subject.name}</h3>
-            </div>
-          ))}
-        </div>
-      </section>
+    const handleSubjectClick = (subject) => {
+      setSelectedSubject(subject);
+    };
 
-      <footer className="essay-genie-footer">
-        <div className="footer-content">
+    const handleBackClick = () => {
+      setSelectedSubject(null);
+    };
+
+    return (
+      <div className="home-page">
+        <HeroSection />
+        <CTABanner />
+        
+        <section className="tutors-section py-5">
+          <div className="container">
+            <h2 className="text-center mb-4">Explore the best tutors across the globe</h2>
+            <FeaturedTutors />
+          </div>
+        </section>
+
+        <section className="subjects-section py-5 bg-light">
+          <div className="container">
+            <h2 className="text-center mb-4">Essay Genie Specializes In</h2>
+            
+            {selectedSubject ? (
+              <div className="services-container">
+                <button onClick={handleBackClick} className="back-button btn btn-link mb-3">
+                  &larr; Back to Subjects
+                </button>
+                <h3 className="service-title text-center mb-4">{selectedSubject.name} Services</h3>
+                <div className="row">
+                  {selectedSubject.services.map((service, index) => (
+                    <div key={index} className="col-md-4 mb-4">
+                      <div className="service-card card h-100">
+                        <div className="card-body d-flex flex-column">
+                          <h4 className="card-title">{service}</h4>
+                          <button className="btn btn-primary mt-auto">Request Service</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="row">
+                {featuredSubjects.map((subject, index) => (
+                  <div key={index} className="col-md-4 mb-4">
+                    <div 
+                      className="subject-card card h-100"
+                      onClick={() => handleSubjectClick(subject)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <div className="card-body text-center">
+                        <span className="subject-icon display-4">{subject.icon}</span>
+                        <h3 className="card-title">{subject.name}</h3>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <footer className="essay-genie-footer bg-dark text-white py-5">
+    <div className="container">
+      <div className="row">
+        <div className="col-md-4 mb-4">
           <div className="footer-brand">
             <img 
               src="/assets/images/essaygenie.png" 
               alt="Essay Genie Logo" 
-              className="footer-logo"
+              className="footer-logo img-fluid mb-3"
+              style={{ maxWidth: '200px' }}
             />
             <h3>Essay Genie</h3>
             <p>Your academic writing assistant</p>
           </div>
-          
+        </div>
+
+        <div className="col-md-4 mb-4">
           <div className="footer-about">
             <h4>About Us</h4>
             <p>
@@ -57,39 +170,71 @@ const HomePage = () => {
               aspects of academic writing, from essays to dissertations.
             </p>
           </div>
-          <div class="col-md-4">
-            <h5>Leave a comment</h5>
-             <form action="">
-                  <input type="email" placeholder="Your email" class="form-control"/> <br />
-                   <textarea name="comment" id="comment" rows="" class="form-control"/> <textarea ></textarea>
-                    <input type="submit" value="Submit" class=" form-control   btn btn-outline-danger"/>
+        </div>
 
-                  </form>
-          </div>
+        <div className="col-md-4 mb-4">
+          <h5>Leave a comment</h5>
+          <form>
+            <div className="mb-3">
+              <input 
+                type="email" 
+                placeholder="Your email" 
+                className="form-control" 
+              />
+            </div>
+            <div className="mb-3">
+              <textarea 
+                name="comment" 
+                id="comment" 
+                rows="3" 
+                placeholder="Your message"
+                className="form-control"
+              ></textarea>
+            </div>
+            <button type="submit" className="btn btn-outline-light">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div className="row mt-4">
+        <div className="col-md-6 mb-4">
           <div className="footer-contact">
             <h4>Contact Us</h4>
-            <p>Email: essaygenie@gmail.com</p>
-            <div className="social-links">
-              <h4>Contact Us</h4>
-              {/* < h6> <b>Phone N.o</b></h6>
-               <p>+254735709392/+254798976120</p> */}
-                      <img src="/assets/images/in.png" alt="instagram" height="40px" width="40px"/>
-                        {/* <h6>Instagram: @EssayGenie</h6> */}
-                        <img src="/assets/images/x.png" alt="Twitter" height="40px" width="40px"/>
-                          {/* <h6>Twitter: @EssayGenie</h6> */}
-                            <h6>Incase of any questions reach us at:</h6>
-                            <p>essaygenie@gmail.com</p>
-                            {/* <img src="/assets/images/essaygenie.png" alt="logo" height="100px" width="=250px"/>                                                                                                                           */}
-              </div>
+            <p><i className="bi bi-envelope me-2"></i> essaygenie@gmail.com</p>
+            <p><i className="bi bi-phone me-2"></i> +254735709392 / +254798976120</p>
           </div>
         </div>
         
-        <div className="footer-copyright">
-          <p>© {new Date().getFullYear()} Essay Genie. All rights reserved.</p>
-        </div>
-      </footer>
-    </>
-  );
-};
+        <div className="col-md-6 mb-4">
+          <div className="social-links">
+            <h4>Follow Us</h4>
+           
+            <button className="text-white btn btn-link p-0 d-flex align-items-center">
+               <img src="/assets/images/in.png" alt="Instagram" height="30" />
+              <span className="ms-2">@EssayGenie</span>
+            </button>
 
-export default HomePage;
+           
+            <button className="text-white btn btn-link p-0 d-flex align-items-center">
+              <img src="/assets/images/x.png" alt="Twitter" height="30" />  
+              <span className="ms-2">@EssayGenie</span>
+            </button>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center pt-3 border-top">
+        <p>© {new Date().getFullYear()} Essay Genie. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+      </div>
+    );
+  };
+
+  export default HomePage;
