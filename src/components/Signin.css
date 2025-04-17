@@ -157,3 +157,79 @@
 .legal-link:hover {
     text-decoration: underline;
 }
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.signin-form-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.signin-form h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.signin-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.signin-form button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.signin-form button:hover {
+  background-color: #0056b3;
+}
+
+.text-info {
+  color: #17a2b8;
+  text-align: center;
+}
+
+.text-success {
+  color: #28a745;
+  text-align: center;
+}
+
+.text-danger {
+  color: #dc3545;
+  text-align: center;
+}
+
+.signup-link,
+.forgot-links,
+.tos-text,
+.legal-text {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.legal-link {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+
