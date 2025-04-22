@@ -100,18 +100,14 @@ const Navbar = () => {
                 )}
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/signin" className="btn btn-success auth-btn">
-                <img 
-                  src="/assets/icons/profile.svg" 
-                  alt="Profile" 
-                  className="nav-icon"
-                  width="18"
-                  height="18"
-                />
-                Sign In
-              </Link>
-            </li>
+            <div className="auth-buttons">
+                <Link to="/signin" className="btn btn-outline-light auth-btn" onClick={() => navigate('/Signin')}>
+                  Sign In
+                </Link>
+                <Link to="/signup" className="btn btn-light auth-btn signup-btn" onClick={() => navigate('/Signup')}>
+                  Sign Up
+                </Link>
+              </div>
           </ul>
         </div>
       </div>
