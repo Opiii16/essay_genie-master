@@ -1,232 +1,169 @@
-    import React, { useState, useEffect } from 'react';
-    import { useLocation, useNavigate } from 'react-router-dom';
-    import axios from 'axios';
-    import './Makepayment.css'; // Create this CSS file for custom styles
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-    const Makepayment = () => {
-    const navigate = useNavigate();
-    const { state } = useLocation();
-    const [paymentDetails, setPaymentDetails] = useState({
-        phone: '',
-        amount: '',
-        serviceType: 'tutor',
-        tutorId: '',
-        resourceId: '',
-        description: ''
-    });
-    const [isLoading, setIsLoading] = useState(false);
-    const [tutors, setTutors] = useState([]);
-    const [resources, setResources] = useState([]);
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
+const MakePayment = () => {
+  const navigate = useNavigate();  
+  const location = useLocation();
 
-    // Fetch data when component mounts
-    useEffect(() => {
-        const fetchData = async () => {
-        try {
-            // Fetch available tutors (adjust endpoint to match your API)
-            const tutorsRes = await axios.get('https://oprahjane16.pythonanywhere.com/api/tutors');
-            setTutors(tutorsRes.data);
-            
-            // Fetch available resources (adjust endpoint)
-            const resourcesRes = await axios.get('https://oprahjane16.pythonanywhere.com/api/resources');
-            setResources(resourcesRes.data);
-            
-            // Set initial state if coming from order page
-            if (state?.product) {
-            setPaymentDetails(prev => ({
-                ...prev,
-                amount: state.product.product_cost,
-                description: `Payment for ${state.product.product_name}`
-            }));
-            }
-        } catch (err) {
-            setError('Failed to load payment options. Please try again.');
-        }
-        };
-        
-        fetchData();
-    }, [state]);
+  console.log('Received state:', location.state);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setPaymentDetails(prev => ({ ...prev, [name]: value }));
-        setError('');
-    };
+  const { service, tutor } = location.state || {};
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setMessage('Please wait as we process your payment...');
-        setError('');
+  const paymentItem = service || tutor || {
+    name: 'Service/Tutor',
+    price: 0,
+    description: 'Payment for a selected service or tutor',
+  };
 
-        try {
-        // Format phone number (matches your existing format)
-        let formattedPhone = paymentDetails.phone.trim();
-        if (formattedPhone.startsWith('0')) {
-            formattedPhone = '254' + formattedPhone.substring(1);
-        } else if (!formattedPhone.startsWith('254')) {
-            formattedPhone = '254' + formattedPhone;
-        }
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
-        // Prepare data matching your existing API expectations
-        const paymentData = new FormData();
-        paymentData.append("phone", formattedPhone);
-        paymentData.append("amount", paymentDetails.amount);
-        
-        // Add additional fields if needed by your backend
-        if (paymentDetails.tutorId) {
-            paymentData.append("tutor_id", paymentDetails.tutorId);
-        }
-        if (paymentDetails.resourceId) {
-            paymentData.append("resource_id", paymentDetails.resourceId);
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        // Use your existing MPesa endpoint
-        const response = await axios.post(
-            "https://oprahjane16.pythonanywhere.com/api/mpesa_payment",
-            paymentData
-        );
+    if (!phone.match(/^07[0-9]{8}$/)) {  // 07 + 8 digits
+      setMessage('Please enter a valid M-Pesa number starting with 07 (e.g., 0712345678)');
+      return;
+    }
 
-        setMessage(response.data.message || 'Payment initiated successfully!');
-        
-        // Redirect after delay (adjust as needed)
-        setTimeout(() => {
-            navigate('/orders');
-        }, 3000);
-        
-        } catch (err) {
-        setError(err.response?.data?.message || 'Payment failed. Please try again.');
-        setIsLoading(false);
-        }
-    };
+    setIsProcessing(true);
+    setMessage('Processing payment request...');
 
-    return (
-        <div className='row justify-content-center m-4'>
-        <div className="col-md-8 col-lg-6 card shadow p-4 payment-card">
-            <form onSubmit={handleSubmit}>
-            <h2 className='text-success mb-4'>Make Payment</h2>
-            
-            {message && (
-                <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-info'}`}>
-                {message}
-                </div>
-            )}
-            
-            {error && (
-                <div className="alert alert-danger">
-                {error}
-                </div>
-            )}
+    try {
+      const formattedPhone = phone.replace(/^0/, '254'); // Convert 0712345678 → 254712345678
 
-            <div className="mb-3">
-                <label className="form-label">Payment For</label>
-                <select
-                className="form-select"
-                name="serviceType"
-                value={paymentDetails.serviceType}
-                onChange={handleInputChange}
-                >
-                <option value="tutor">Tutor Session</option>
-                <option value="resource">Study Resource</option>
-                <option value="other">Other Service</option>
-                </select>
+      const paymentData = new FormData();
+      paymentData.append("phone", formattedPhone);
+      paymentData.append("amount", paymentItem.price);
+      paymentData.append("service", paymentItem.name);
+      paymentData.append("tutor", tutor?.name || 'N/A');
+
+      const response = await axios.post(
+        "https://oprahjane16.pythonanywhere.com/api/mpesa_payment",
+        paymentData
+      );
+
+      setMessage(response.data.message || 'Payment request sent to your phone');
+
+      // Save order to localStorage
+      const newOrder = {
+        name: paymentItem.name,
+        type: tutor ? 'Tutor' : 'Essay Genie Service',
+        amount: paymentItem.price,
+        transactionCode: response.data.transactionCode || 'N/A',
+      };
+
+      const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+      localStorage.setItem('orders', JSON.stringify([...existingOrders, newOrder]));
+
+      setTimeout(() => {
+        navigate('/payment-success', { 
+          state: { 
+            service: paymentItem, 
+            tutor,
+            paymentDetails: response.data 
+          }
+        });
+      }, 5000);
+
+    } catch (error) {
+      console.error('Payment error:', error);
+      setMessage(error.response?.data?.message || 'Payment failed. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <div className="card shadow">
+            <div className="card-header bg-primary text-white">
+              <h2 className="text-center mb-0">Essay Genie Payment</h2>
             </div>
 
-            {paymentDetails.serviceType === 'tutor' && (
-                <div className="mb-3">
-                <label className="form-label">Select Tutor</label>
-                <select
-                    className="form-select"
-                    name="tutorId"
-                    value={paymentDetails.tutorId}
-                    onChange={handleInputChange}
-                >
-                    <option value="">-- Select Tutor --</option>
-                    {tutors.map(tutor => (
-                    <option key={tutor.id} value={tutor.id}>
-                        {tutor.name} - KSh {tutor.hourly_rate}/hr
-                    </option>
-                    ))}
-                </select>
-                </div>
-            )}
-
-            {paymentDetails.serviceType === 'resource' && (
-                <div className="mb-3">
-                <label className="form-label">Select Resource</label>
-                <select
-                    className="form-select"
-                    name="resourceId"
-                    value={paymentDetails.resourceId}
-                    onChange={handleInputChange}
-                >
-                    <option value="">-- Select Resource --</option>
-                    {resources.map(resource => (
-                    <option key={resource.id} value={resource.id}>
-                        {resource.title} - KSh {resource.price}
-                    </option>
-                    ))}
-                </select>
-                </div>
-            )}
-
-            <div className="mb-3">
-                <label className="form-label">Amount (KSh)</label>
-                <input
-                type="number"
-                className="form-control"
-                name="amount"
-                value={paymentDetails.amount}
-                onChange={handleInputChange}
-                required
-                />
-            </div>
-
-            <div className="mb-3">
-                <label className="form-label">MPesa Phone Number</label>
-                <input
-                type="tel"
-                className="form-control"
-                name="phone"
-                placeholder="254712345678"
-                value={paymentDetails.phone}
-                onChange={handleInputChange}
-                required
-                />
-                <small className="text-muted">Format: 2547XXXXXXXX</small>
-            </div>
-
-            <div className="mb-3">
-                <label className="form-label">Payment Description</label>
-                <textarea
-                className="form-control"
-                name="description"
-                rows="2"
-                value={paymentDetails.description}
-                onChange={handleInputChange}
-                required
-                />
-            </div>
-
-            <button 
-                type="submit" 
-                className="btn btn-success w-100 py-2"
-                disabled={isLoading}
-            >
-                {isLoading ? (
-                <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Processing...
-                </>
-                ) : (
-                `Pay KSh ${paymentDetails.amount || '0'}`
+            <div className="card-body">
+              <div className="mb-4 p-3 border rounded">
+                <h4 className="text-primary">{paymentItem.name}</h4>
+                {paymentItem.description && <p className="mb-1">{paymentItem.description}</p>}
+                {tutor && (
+                  <p className="mb-1"><strong>Tutor:</strong> {tutor.name}</p>
                 )}
-            </button>
-            </form>
-        </div>
-        </div>
-    );
-    };
+                <h5 className="mt-2 text-success">
+                  KES {paymentItem.price?.toLocaleString() || 0}
+                </h5>
+              </div>
 
-    export default Makepayment;
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="phone" className="form-label">
+                    M-Pesa Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="form-control"
+                    placeholder="07XXXXXXXX"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                  <div className="form-text">
+                    Enter your M-Pesa number starting with 07 (e.g., 0712345678)
+                  </div>
+                </div>
+
+                {message && (
+                  <div className={`alert ${isProcessing ? 'alert-info' : message.includes('failed') ? 'alert-danger' : 'alert-success'}`}>
+                    {message}
+                  </div>
+                )}
+
+                <div className="d-grid gap-2">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-lg"
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Processing...
+                      </>
+                    ) : (
+                      'Pay with M-Pesa'
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={() => navigate(-1)}
+                  >
+                    Back
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="card-footer text-muted small">
+              <p className="mb-1">
+                <i className="bi bi-shield-lock me-2"></i>
+                Your payment is secure and encrypted
+              </p>
+              <p className="mb-0">
+                <i className="bi bi-headset me-2"></i>
+                Need help? Contact support: +254735709392
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MakePayment;

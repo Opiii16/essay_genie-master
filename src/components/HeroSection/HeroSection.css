@@ -11,21 +11,39 @@
   margin-bottom: 1rem;
 }
 
-.marquee-container {
-  width: 100%;
-  overflow: hidden;
+.hero-tagline {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2.25rem;
+  color: #8B0000; /* Deep red for elegance */
+  font-weight: bold;
   white-space: nowrap;
-  margin: 1rem 0;
-  text-align: left; /* Align marquee to left */
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .marquee-text {
   display: inline-block;
-  font-family: 'Courier New', monospace;
-  font-size: 1rem; /* Reduced from 1.5rem */
-  color: #e74c3c;
-  font-weight: bold;
-  padding-left: 100%;
-  animation: marquee 15s linear infinite;
+  animation: marquee 12s linear infinite;
 }
+
+/* Animation keyframes */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+
+
 

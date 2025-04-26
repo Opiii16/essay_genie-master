@@ -1,11 +1,17 @@
 /* FeaturedTutors/Tutors.css */
 
+.featured-tutors {
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
 .tutors-carousel-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  overflow: hidden;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .tutors-carousel {
@@ -16,31 +22,75 @@
 .tutors-slides {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 100%;
 }
 
 .tutor-card {
-  flex: 0 0 100%;
+  flex: 0 0 calc(100% / 3); /* 3 cards per view */
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.tutor-card-inner {
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 0 10px;
-  min-width: calc(100% - 20px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.tutor-image-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 3px solid #3498db;
+}
+
+.tutor-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tutor-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.tutor-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.tutor-subject {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-top: 5px;
+}
+
+.tutor-rating {
+  font-size: 1rem;
+  color: #f39c12;
+  margin-top: 5px;
 }
 
 .carousel-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   border: none;
-  padding: 10px 15px;
   border-radius: 50%;
+  width: 35px;
+  height: 35px;
   cursor: pointer;
-  font-size: 1.5rem;
-  z-index: 10;
+  z-index: 2;
 }
 
 .carousel-button.prev {
@@ -58,508 +108,292 @@
 .carousel-indicators {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .indicator {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #ccc;
   margin: 0 5px;
   border: none;
   cursor: pointer;
-  padding: 0;
 }
 
 .indicator.active {
   background: #3498db;
 }
 
-/* Responsive adjustments */
-@media (min-width: 768px) {
-  .tutor-card {
-    flex: 0 0 calc(50% - 20px);
-    min-width: calc(50% - 20px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .tutor-card {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: calc(33.333% - 20px);
-  }
-}
-
-/* Keep all other existing styles from previous version */
-.featured-tutors {
-  padding: 3rem 1rem;
-  background-color: #f8f9fa;
-  text-align: center;
-}
-.tutors-carousel-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-}
-
-.tutors-carousel {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.tutors-slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: calc(100% * 18); /* Since you have 18 tutors */
-}
-
-.tutor-card {
-  flex: 0 0 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  text-align: center;
-}
-
-.tutor-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.tutor-info {
-  margin-top: 10px;
-}
-
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #333;
-  color: white;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.carousel-button.prev {
-  left: 0;
-}
-
-.carousel-button.next {
-  right: 0;
-}
-
-.carousel-indicators {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.indicator {
-  height: 10px;
-  width: 10px;
-  margin: 0 4px;
-  background-color: #bbb;
-  border: none;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.indicator.active {
-  background-color: #333;
-}
-/* FeaturedTutors/Tutors.css */
-
-.tutors-carousel-container {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-.tutors-carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-.tutors-slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
-
-.tutor-card {
-  flex: 0 0 calc(100% / 3); /* Show 3 tutors at once */
-  padding: 0 15px;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-.tutor-card-inner {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.tutor-image-container {
-  height: 200px;
-  overflow: hidden;
-  position: relative;
-}
-
-.tutor-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.tutor-card:hover .tutor-image {
-  transform: scale(1.05);
-}
-
-.tutor-badge {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: #27ae60;
-  color: white;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.tutor-info {
-  padding: 1rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.tutor-name {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
-}
-
-.tutor-subject {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.tutor-rating {
-  color: #f39c12;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.tutor-actions {
-  margin-top: auto;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.view-profile-btn, .book-now-btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  flex: 1;
-  text-align: center;
-}
-
-.view-profile-btn {
-  background: #ecf0f1;
-  color: #2c3e50;
-}
-
-.book-now-btn {
-  background: #3498db;
-  color: white;
-}
-
-.carousel-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.carousel-button:hover {
-  background: white;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-}
-
-.carousel-button.prev {
-  left: 0;
-}
-
-.carousel-button.next {
-  right: 0;
-}
-
-.carousel-indicators {
-  display: flex;
-  justify-content: center;
-  margin-top: 1.5rem;
-  gap: 0.5rem;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #bdc3c7;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicator.active {
-  background: #3498db;
-  transform: scale(1.2);
-}
-
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 1024px) {
   .tutor-card {
-    flex: 0 0 50%; /* Show 2 tutors on tablets */
+    flex: 0 0 50%;
   }
 }
 
 @media (max-width: 768px) {
   .tutor-card {
-    flex: 0 0 100%; /* Show 1 tutor on mobile */
-  }
-  
-  .carousel-button {
-    width: 30px;
-    height: 30px;
+    flex: 0 0 100%;
   }
 }
-
-/* FeaturedTutors/Tutors.css */
+/* Tutors.css */
 
 .featured-tutors {
-  padding: 2rem 1rem;
-  background-color: #f8f9fa;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
   text-align: center;
+}
+
+.featured-tutors h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
 }
 
 .tutors-carousel-container {
   position: relative;
-  max-width: 900px; /* Further reduced from 1000px */
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 .tutors-carousel {
   position: relative;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
 .tutors-slides {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease;
   width: 100%;
 }
 
 .tutor-card {
   flex: 0 0 calc(100% / 3);
-  padding: 0 8px; /* Further reduced from 10px */
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  padding: 20px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
-.tutor-card-inner {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center content horizontally */
-  padding: 15px; /* Added padding to inner card */
-}
-
-.tutor-image-container {
-  width: 120px; /* Set fixed width for circular image */
-  height: 120px; /* Set fixed height for circular image */
-  border-radius: 50%; /* Make container circular */
-  overflow: hidden;
-  position: relative;
-  border: 3px solid #3498db; /* Add border to circular image */
-  margin-bottom: 12px; /* Space between image and info */
+.tutor-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .tutor-image {
-  width: 50%;
-  height: 50%;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  display: block;
   transition: transform 0.3s ease;
 }
 
 .tutor-card:hover .tutor-image {
-  transform: scale(1.05);
-}
-
-.tutor-badge {
-  position: absolute;
-  bottom: -5px; /* Adjust position for circular layout */
-  right: -5px; /* Adjust position for circular layout */
-  background: #27ae60;
-  color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 12px; /* More rounded badge */
-  font-size: 0.7rem;
-  font-weight: bold;
+  transform: scale(1.1);
 }
 
 .tutor-info {
-  padding: 0 0.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center text */
-  text-align: center; /* Center text */
-  width: 100%;
+  margin-top: 10px;
 }
 
 .tutor-name {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-  color: #2c3e50;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
 }
 
 .tutor-subject {
-  color: #7f8c8d;
-  font-size: 0.8rem;
-  margin-bottom: 0.3rem;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 8px;
 }
 
 .tutor-rating {
+  font-size: 1rem;
   color: #f39c12;
-  font-size: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.tutor-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 10px;
 }
 
 .tutor-actions {
-  margin-top: auto;
-  display: flex;
-  gap: 0.3rem;
-  width: 100%;
+  margin-top: 10px;
 }
 
-.view-profile-btn, .book-now-btn {
-  padding: 0.3rem 0.6rem;
+.view-profile-btn,
+.pay-now-btn {
+  background-color: #3498db;
   border: none;
-  border-radius: 3px;
+  color: white;
+  padding: 8px 14px;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  flex: 1;
-  text-align: center;
-  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-profile-btn:hover,
+.pay-now-btn:hover {
+  background-color: #2980b9;
 }
 
 .carousel-button {
   position: absolute;
-  top: 40%; /* Adjusted for circular layout */
+  top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.8);
+  background-color: #ffffff;
   border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 2rem;
   cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 10;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.carousel-button.prev {
+  left: 10px;
+}
+
+.carousel-button.next {
+  right: 10px;
 }
 
 .carousel-button:hover {
-  background: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+  background-color: #eee;
+}
+/* FeaturedTutors/Tutors.css */
+.featured-tutors {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #f9f9f9;
 }
 
-.carousel-indicators {
+.featured-tutors h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.tutors-carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tutors-carousel {
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  gap: 0.3rem;
+  transition: transform 0.5s ease;
 }
 
-.indicator {
-  width: 8px;
-  height: 8px;
+.tutors-slides {
+  display: flex;
+}
+
+.tutor-card {
+  margin: 0 10px;
+  width: 200px; /* Adjust width as necessary */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow: hidden;
+}
+
+.tutor-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 50%;
-  background: #bdc3c7;
+  margin-bottom: 10px;
+  border: 2px solid #ddd; /* Optional, adds a border around the circle */
+}
+
+.tutor-info {
+  text-align: center;
+}
+
+.tutor-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.tutor-subject {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.tutor-rating {
+  margin-bottom: 10px;
+  color: #ff9900; /* Star color */
+}
+
+.tutor-price {
+  font-weight: bold;
+  color: #333;
+}
+
+.tutor-actions button {
+  background-color: #007bff;
+  color: white;
   border: none;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  margin: 5px 0;
+  font-size: 0.9rem;
 }
 
-.indicator.active {
-  background: #3498db;
-  transform: scale(1.1);
+.tutor-actions button:hover {
+  background-color: #0be253;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .tutor-card {
-    flex: 0 0 50%;
-  }
-  
-  .tutor-image-container {
-    width: 100px;
-    height: 100px;
-  }
+/* Carousel Navigation Arrows */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
 }
 
-@media (max-width: 768px) {
-  .tutors-carousel-container {
-    padding: 0.5rem;
-  }
-  
-  .tutor-card {
-    flex: 0 0 100%;
-  }
-  
-  .tutor-image-container {
-    width: 90px;
-    height: 90px;
-  }
-  
-  .carousel-button {
-    width: 25px;
-    height: 25px;
-  }
+.carousel-button.prev {
+  left: 25px;
 }
-/* ... rest of your existing CSS ... */
+
+.carousel-button.next {
+  right: 25px;
+}
+
+/* Arrows hover effect */
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
