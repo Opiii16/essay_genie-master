@@ -41,6 +41,48 @@
   width: 100%;
   overflow: hidden;
 }
+/* .hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(rgba(0,0,0,0.5))
+  color: white;
+} */
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+/* NEW STYLES for the Get Started button */
+.button-wrapper {
+  text-align: right; /* align the button to the right */
+}
+
+.get-started-button {
+  background-color: #0dcaf0; /* Bootstrap info color */
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.get-started-button:hover {
+  background-color: #0bb2d4; /* Darker info color */
+}
+
 
 
 

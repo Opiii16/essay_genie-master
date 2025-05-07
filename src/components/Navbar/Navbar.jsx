@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Services from '../Services';
 import Resources from '../Resources';
@@ -9,9 +9,21 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [showResources, setShowResources] = useState(false);
-  const [cartCount] = useState(3);
+  const [cartCount, setCartCount] = useState(0); // Now dynamic
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  // Load order count from localStorage
+  useEffect(() => {
+    const updateCartCount = () => {
+      const storedOrders = JSON.parse(localStorage.getItem('orders')) || [];
+      setCartCount(storedOrders.length);
+    };
+    
+    updateCartCount();
+    window.addEventListener('storage', updateCartCount);
+    return () => window.removeEventListener('storage', updateCartCount);
+  }, []);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -32,13 +44,19 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
+    // Add your search logic here
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   return (
     <nav className="app-navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <img src="/assets/images/essaygenie.png" alt="EssayGenie Logo" className="navbar-logo-icon" />
+          <img 
+            src="/assets/images/essaygenie.png" 
+            alt="EssayGenie Logo" 
+            className="navbar-logo-icon" 
+          />
           <Link to="/" className="nav-logo-text">EssayGenie</Link>
           <MobileMenuButton isOpen={isNavOpen} onClick={toggleNav} />
         </div>
@@ -109,7 +127,11 @@ const Navbar = () => {
             </div>
             
             <div className="auth-cart-container">
-              <Link to="/cart" className="cart-link">
+              <Link 
+                to="/my-orders" 
+                className="cart-link"
+                onClick={() => navigate('/my-orders')}
+              >
                 <img 
                   src="/assets/images/shopping-cart.png"
                   alt="Cart" 
@@ -123,10 +145,18 @@ const Navbar = () => {
               </Link>
               
               <div className="auth-buttons">
-                <Link to="/signin" className="btn btn-outline-light auth-btn" onClick={() => navigate('/Signin')}>
+                <Link 
+                  to="/signin" 
+                  className="btn btn-outline-light auth-btn" 
+                  onClick={() => navigate('/signin')}
+                >
                   Sign In
                 </Link>
-                <Link to="/signup" className="btn btn-light auth-btn signup-btn" onClick={() => navigate('/Signup')}>
+                <Link 
+                  to="/signup" 
+                  className="btn btn-light auth-btn signup-btn"
+                  onClick={() => navigate('/signup')}
+                >
                   Sign Up
                 </Link>
               </div>

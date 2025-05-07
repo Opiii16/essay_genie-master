@@ -1,96 +1,118 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Services from '../Services';
+import Resources from '../Resources';
+import MobileMenuButton from './MobileMenuButton';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const [cartCount, setCartCount] = useState(3);
+  const [showServices, setShowServices] = useState(false);
+  const [showResources, setShowResources] = useState(false);
+  const [cartCount] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
-    setActiveDropdown(null);
+    setShowServices(false);
+    setShowResources(false);
   };
 
-  const toggleDropdown = (dropdown) => {
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+  const toggleServices = () => {
+    setShowServices(!showServices);
+    if (showResources) setShowResources(false);
+  };
+
+  const toggleResources = () => {
+    setShowResources(!showResources);
+    if (showServices) setShowServices(false);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
-    // Add your search logic here
   };
 
   return (
-    <nav className="app-navbar prosper-navbar">
-      <div className="navbar-brand">
-        <img src="/assets/images/prosper-logo.png" alt="Prosper Logo" className="navbar-logo-icon" />
-        <Link to="/" className="nav-logo-text">Prosper</Link>
-        <button 
-          className="mobile-menu-button"
-          onClick={toggleNav}
-          aria-label="Toggle navigation"
-        >
-          <span className={`menu-icon ${isNavOpen ? 'open' : ''}`}></span>
-        </button>
-      </div>
+    <nav className="app-navbar">
+      <div className="navbar-container">
+        <div className="navbar-brand">
+          <img src="/assets/images/essaygenie.png" alt="EssayGenie Logo" className="navbar-logo-icon" />
+          <Link to="/" className="nav-logo-text">EssayGenie</Link>
+          <MobileMenuButton isOpen={isNavOpen} onClick={toggleNav} />
+        </div>
 
-      <div className={`navbar-menu ${isNavOpen ? 'open' : ''}`}>
-        <div className="navbar-container">
-          <ul className="navbar-nav">
-            {/* Main Categories with Dropdowns */}
-            <li className="nav-item nav-dropdown">
-              <button 
-                className="nav-link" 
-                onClick={() => toggleDropdown('hoods')}
-                aria-expanded={activeDropdown === 'hoods'}
-              >
-                Hoods <span className="dropdown-arrow">&#9660;</span>
-              </button>
-              {activeDropdown === 'hoods' && (
-                <div className="dropdown-menu">
-                  <ul className="dropdown-list">
-                    <li><button className="dropdown-item black">Black</button></li>
-                    <li><button className="dropdown-item white">White</button></li>
-                    <li><button className="dropdown-item red">Red</button></li>
-                    <li><button className="dropdown-item gray">Gray</button></li>
-                  </ul>
-                </div>
-              )}
-            </li>
+        <div className={`navbar-menu ${isNavOpen ? 'open' : ''}`}>
+          <div className="navbar-left">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link to="/order" className="nav-link">Order</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/tutors" className="nav-link">Tutors</Link>
+              </li>
+              <li className="nav-item nav-dropdown">
+                <button 
+                  className={`nav-link ${showServices ? 'active' : ''}`} 
+                  onClick={toggleServices}
+                  aria-expanded={showServices}
+                >
+                  Services <span className="dropdown-arrow">&#9660;</span>
+                </button>
+                {showServices && (
+                  <div className="dropdown-menu services-dropdown show">
+                    <div className="dropdown-content">
+                      <Services />
+                    </div>
+                  </div>
+                )}
+              </li>
+              <li className="nav-item nav-dropdown">
+                <button 
+                  className={`nav-link ${showResources ? 'active' : ''}`} 
+                  onClick={toggleResources}
+                  aria-expanded={showResources}
+                >
+                  Resources <span className="dropdown-arrow">&#9660;</span>
+                </button>
+                {showResources && (
+                  <div className="dropdown-menu resources-dropdown show">
+                    <div className="dropdown-content">
+                      <Resources />
+                    </div>
+                  </div>
+                )}
+              </li>
+            </ul>
+          </div>
 
-            {/* ... (keep your other dropdown items) */}
-          </ul>
-
-          {/* Right-aligned icons section */}
-          <ul className="navbar-nav navbar-right-group">
-            <li className="nav-item search-container">
+          <div className="navbar-right">
+            <div className="search-container">
               <form onSubmit={handleSearch} className="search-form">
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder="Search..."
                   className="search-input"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button type="submit" className="search-button">
                   <img 
-                    src="/assets/icons/search.svg" 
-                    alt="Search" 
-                    className="search-icon"
+                    src="/assets/images/loupe.png" 
+                    alt="Search"
                     width="16"
                     height="16"
                   />
                 </button>
               </form>
-            </li>
-            <li className="nav-item cart-icon">
-              <Link to="/cart" className="nav-link cart-link">
+            </div>
+            
+            <div className="auth-cart-container">
+              <Link to="/cart" className="cart-link">
                 <img 
-                  src="/assets/icons/shopping-cart.svg" 
-                  alt="Shopping Cart" 
+                  src="/assets/images/shopping-cart.png"
+                  alt="Cart" 
                   className="nav-icon"
                   width="20"
                   height="20"
@@ -99,8 +121,8 @@ const Navbar = () => {
                   <span className="cart-badge">{cartCount}</span>
                 )}
               </Link>
-            </li>
-            <div className="auth-buttons">
+              
+              <div className="auth-buttons">
                 <Link to="/signin" className="btn btn-outline-light auth-btn" onClick={() => navigate('/Signin')}>
                   Sign In
                 </Link>
@@ -108,7 +130,8 @@ const Navbar = () => {
                   Sign Up
                 </Link>
               </div>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

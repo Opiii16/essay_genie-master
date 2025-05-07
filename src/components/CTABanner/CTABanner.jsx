@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './CTABanner.css';
 
 const CTABanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
 
   const slides = [
-    // Original slide as the first item
     {
       desktopImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       mobileImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
@@ -15,7 +15,6 @@ const CTABanner = () => {
       cta: "Explore Now",
       link: "/explore"
     },
-    // New slides added
     {
       desktopImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       mobileImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
@@ -34,37 +33,67 @@ const CTABanner = () => {
     }
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+  const nextSlide = useCallback(() => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      setTransitioning(false);
+    }, 300);
+  }, [slides.length]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
+  const prevSlide = useCallback(() => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+      setTransitioning(false);
+    }, 300);
+  }, [slides.length]);
+
+  const goToSlide = useCallback((index) => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setTransitioning(false);
+    }, 300);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentSlide, nextSlide]);
 
   return (
     <div className="editorial-module-container">
       <div className="editorial-module-background">
-        <picture className="responsive-image">
-          <source
-            type="image/webp"
-            media="(min-width: 980px)"
-            srcSet={`${slides[currentSlide].desktopImage.replace('.jpg', '.webp')}`}
-          />
-          <source
-            media="(min-width: 980px)"
-            srcSet={slides[currentSlide].desktopImage}
-          />
-          <source
-            type="image/webp"
-            srcSet={`${slides[currentSlide].mobileImage.replace('.jpg', '.webp')}`}
-          />
-          <img
-            src={slides[currentSlide].mobileImage}
-            alt="Academic resources with EssayGenie"
-            className="responsive-image-img"
-          />
-        </picture>
+        <div className={`slide-container ${transitioning ? 'transitioning' : ''}`}>
+          {slides.map((slide, index) => (
+            <picture 
+              key={index}
+              className={`responsive-image ${index === currentSlide ? 'active' : ''}`}
+            >
+              <source
+                type="image/webp"
+                media="(min-width: 980px)"
+                srcSet={`${slide.desktopImage.replace('.jpg', '.webp')}`}
+              />
+              <source
+                media="(min-width: 980px)"
+                srcSet={slide.desktopImage}
+              />
+              <source
+                type="image/webp"
+                srcSet={`${slide.mobileImage.replace('.jpg', '.webp')}`}
+              />
+              <img
+                src={slide.mobileImage}
+                alt="Academic resources with EssayGenie"
+                className="responsive-image-img"
+              />
+            </picture>
+          ))}
+        </div>
       </div>
       
       <div className="carousel-controls">
@@ -77,17 +106,25 @@ const CTABanner = () => {
       </div>
       
       <div className="cta-content-wrapper">
-        <Link to={slides[currentSlide].link} className="cta-background-image-block">
-          <div className="cta-text-container">
-            <div className="cta-text">
-              <div className="text-overline">{slides[currentSlide].subtitle}</div>
-              <h2>{slides[currentSlide].title}</h2>
-              <button type="button" className="btn btn-success cta-button">
-                {slides[currentSlide].cta}
-              </button>
-            </div>
-          </div>
-        </Link>
+        <div className={`slide-container ${transitioning ? 'transitioning' : ''}`}>
+          {slides.map((slide, index) => (
+            <Link 
+              to={slide.link} 
+              key={index}
+              className={`cta-background-image-block ${index === currentSlide ? 'active' : ''}`}
+            >
+              <div className="cta-text-container">
+                <div className="cta-text">
+                  <div className="text-overline">{slide.subtitle}</div>
+                  <h2>{slide.title}</h2>
+                  <button type="button" className="btn btn-success cta-button">
+                    {slide.cta}
+                  </button>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
       
       <div className="carousel-indicators">
@@ -95,7 +132,7 @@ const CTABanner = () => {
           <span 
             key={index}
             className={`indicator ${currentSlide === index ? 'active' : ''}`}
-            onClick={() => setCurrentSlide(index)}
+            onClick={() => goToSlide(index)}
           />
         ))}
       </div>

@@ -1,37 +1,81 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './MyOrders.css'; // Create this CSS file for custom styles
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve orders from localStorage
     const storedOrders = JSON.parse(localStorage.getItem('orders')) || [];
     setOrders(storedOrders);
   }, []);
 
+  const handleExploreServices = () => {
+    navigate('/services');
+  };
+
   return (
-    <div className="container py-5">
-      <h2 className="text-center mb-4">My Orders</h2>
+    <div className="orders-container">
+      <div className="orders-header">
+        <h2 className="orders-title">📋 My Order History</h2>
+        <p className="orders-subtitle">View and manage all your past orders</p>
+      </div>
 
       {orders.length === 0 ? (
-        <div className="text-center">
-          <p>You have no orders yet.</p>
-          <p>Explore our services and tutors to make your first order!</p>
+        <div className="empty-orders">
+          <div className="empty-orders-icon">🛒</div>
+          <h3 className="empty-orders-title">Your Order List is Empty</h3>
+          <p className="empty-orders-message">
+            You haven't placed any orders yet. Discover our amazing services and find the perfect tutor for your needs!
+          </p>
+          <button 
+            className="btn btn-primary explore-btn"
+            onClick={handleExploreServices}
+          >
+            Explore Services
+          </button>
         </div>
       ) : (
-        <div className="row justify-content-center">
-          <div className="col-md-10">
-            <div className="list-group">
-              {orders.map((order, index) => (
-                <div key={index} className="list-group-item list-group-item-action mb-3 shadow-sm">
-                  <h5 className="mb-2">{order.name}</h5>
-                  <p className="mb-1"><strong>Type:</strong> {order.type}</p>
-                  <p className="mb-1"><strong>Amount Paid:</strong> KES {order.amount?.toLocaleString()}</p>
-                  <p className="mb-0"><strong>Transaction ID:</strong> {order.transactionCode}</p>
+        <div className="orders-grid">
+          {orders.map((order, index) => (
+            <div key={index} className="order-card">
+              <div className="order-card-header">
+                <h3 className="order-name">{order.name}</h3>
+                <span className={`order-status ${order.status || 'completed'}`}>
+                  {order.status || 'Completed'}
+                </span>
+              </div>
+              
+              <div className="order-details">
+                <div className="detail-item">
+                  <span className="detail-label">Type:</span>
+                  <span className="detail-value">{order.type}</span>
                 </div>
-              ))}
+                <div className="detail-item">
+                  <span className="detail-label">Amount:</span>
+                  <span className="detail-value price">KES {order.amount?.toLocaleString()}</span>
+                </div>
+                <div className="detail-item">
+                  <span className="detail-label">Transaction ID:</span>
+                  <span className="detail-value code">{order.transactionCode}</span>
+                </div>
+                <div className="detail-item">
+                  <span className="detail-label">Date:</span>
+                  <span className="detail-value">{order.date || new Date().toLocaleDateString()}</span>
+                </div>
+              </div>
+              
+              <div className="order-actions">
+                <button className="btn btn-outline view-details">
+                  View Details
+                </button>
+                <button className="btn btn-primary reorder">
+                  Reorder
+                </button>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       )}
     </div>
@@ -39,3 +83,4 @@ const MyOrders = () => {
 };
 
 export default MyOrders;
+

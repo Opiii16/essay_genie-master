@@ -15,6 +15,8 @@ import './App.css';
 
 // Payment pages
 import MakePayment from './components/Makepayment/Makepayment';
+import BookMeeting from './components/BookMeeting/BookMeeting';
+
 import PaymentSuccess from './components/Makepayment/PaymentSuccess';
 import MyOrders from './components/Makepayment/MyOrders';  // Add import for the new MyOrders page
 
@@ -38,6 +40,7 @@ function App() {
 
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/tutors" element={<FeaturedTutorsPage />} />
+            <Route path="/book-meeting" element={<BookMeeting />} />
 
             {/* Payment routes */}
             <Route path="/make-payment" element={<MakePayment />} />

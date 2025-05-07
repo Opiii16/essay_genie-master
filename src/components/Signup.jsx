@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Signup.css';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -71,102 +70,215 @@ const Signup = () => {
     };
 
     return (
-        <div className="page-container">
-            <div className="form-container">
-                <h2 className="form-title">Create Your Account</h2>
-                <p className="form-subtitle">Join us to get started</p>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh',
+            backgroundColor: '#f5f5f5',
+            padding: '20px'
+        }}>
+            <div style={{
+                backgroundColor: 'white',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                padding: '40px',
+                width: '100%',
+                maxWidth: '500px'
+            }}>
+                <h2 style={{
+                    textAlign: 'center',
+                    marginBottom: '8px',
+                    color: '#333',
+                    fontSize: '24px'
+                }}>Create Your Account</h2>
+                <p style={{
+                    textAlign: 'center',
+                    marginBottom: '24px',
+                    color: '#666'
+                }}>Join us to get started</p>
                 
-                {loading && <p className="status-message loading">{loading}</p>}
-                {error && <p className="status-message error">{error}</p>}
-                {success && <p className="status-message success">{success}</p>}
+                {loading && <p style={{
+                    color: '#17a2b8',
+                    textAlign: 'center',
+                    margin: '16px 0'
+                }}>{loading}</p>}
+                {error && <p style={{
+                    color: '#dc3545',
+                    textAlign: 'center',
+                    margin: '16px 0'
+                }}>{error}</p>}
+                {success && <p style={{
+                    color: '#28a745',
+                    textAlign: 'center',
+                    margin: '16px 0'
+                }}>{success}</p>}
 
-                <form onSubmit={handleSubmit} className="signup-form">
-                    <div className="name-inputs">
-                        <div className="input-group">
+                <form onSubmit={handleSubmit} style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '16px'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        gap: '16px'
+                    }}>
+                        <div style={{ flex: 1 }}>
                             <input
                                 type="text"
                                 name="firstName"
                                 placeholder="First Name"
                                 value={formData.firstName}
                                 onChange={handleChange}
-                                className="form-input"
                                 required
+                                style={{
+                                    padding: '12px',
+                                    borderRadius: '4px',
+                                    border: '1px solid #ddd',
+                                    fontSize: '16px',
+                                    width: '100%'
+                                }}
                             />
                         </div>
-                        <div className="input-group">
+                        <div style={{ flex: 1 }}>
                             <input
                                 type="text"
                                 name="lastName"
                                 placeholder="Last Name"
                                 value={formData.lastName}
                                 onChange={handleChange}
-                                className="form-input"
                                 required
+                                style={{
+                                    padding: '12px',
+                                    borderRadius: '4px',
+                                    border: '1px solid #ddd',
+                                    fontSize: '16px',
+                                    width: '100%'
+                                }}
                             />
                         </div>
                     </div>
 
-                    <div className="input-group">
+                    <div>
                         <input
                             type="email"
                             name="email"
                             placeholder="Email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="form-input"
                             required
+                            style={{
+                                padding: '12px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                fontSize: '16px',
+                                width: '100%'
+                            }}
                         />
                     </div>
 
-                    <div className="input-group">
+                    <div>
                         <input
                             type="password"
                             name="password"
                             placeholder="Password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="form-input"
                             required
+                            style={{
+                                padding: '12px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                fontSize: '16px',
+                                width: '100%'
+                            }}
                         />
-                        <div className="password-criteria">
-                            <p className={passwordCriteria.length ? 'valid' : 'invalid'}>
+                        <div style={{
+                            marginTop: '8px',
+                            fontSize: '14px'
+                        }}>
+                            <p style={{
+                                color: passwordCriteria.length ? '#28a745' : '#6c757d',
+                                margin: '4px 0'
+                            }}>
                                 ✓ Minimum 8 characters
                             </p>
-                            <p className={passwordCriteria.letter ? 'valid' : 'invalid'}>
+                            <p style={{
+                                color: passwordCriteria.letter ? '#28a745' : '#6c757d',
+                                margin: '4px 0'
+                            }}>
                                 ✓ At least one letter
                             </p>
-                            <p className={passwordCriteria.number ? 'valid' : 'invalid'}>
+                            <p style={{
+                                color: passwordCriteria.number ? '#28a745' : '#6c757d',
+                                margin: '4px 0'
+                            }}>
                                 ✓ At least one number
                             </p>
                         </div>
                     </div>
 
-                    <div className="checkbox-group">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="subscribe"
-                                checked={formData.subscribe}
-                                onChange={handleChange}
-                            />
-                            <span>Send me weekly emails with free resources</span>
-                        </label>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        margin: '8px 0'
+                    }}>
+                        <input
+                            type="checkbox"
+                            name="subscribe"
+                            checked={formData.subscribe}
+                            onChange={handleChange}
+                            style={{
+                                marginRight: '8px'
+                            }}
+                        />
+                        <span style={{ fontSize: '14px' }}>
+                            Send me weekly emails with free resources
+                        </span>
                     </div>
 
                     <button 
                         type="submit" 
-                        className="submit-button" 
                         disabled={loading}
+                        style={{
+                            padding: '12px',
+                            backgroundColor: '#007bff',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            fontSize: '16px',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            marginTop: '8px'
+                        }}
                     >
                         {loading ? "Creating account..." : "Sign Up"}
                     </button>
 
-                    <p className="login-link">
-                        Already have an account? <a href="/login">Sign in</a>
+                    <p style={{
+                        textAlign: 'center',
+                        marginTop: '16px',
+                        fontSize: '14px'
+                    }}>
+                        Already have an account? <a href="/login" style={{
+                            color: '#007bff',
+                            textDecoration: 'none'
+                        }}>Sign in</a>
                     </p>
 
-                    <p className="legal-text">
-                        Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms" className="legal-link">Terms</a> and <a href="https://policies.google.com/privacy" className="legal-link">Privacy</a>.
+                    <p style={{
+                        fontSize: '12px',
+                        color: '#6c757d',
+                        textAlign: 'center',
+                        marginTop: '24px'
+                    }}>
+                        Protected by reCAPTCHA and subject to Google's <a href="https://policies.google.com/terms" style={{
+                            color: '#007bff',
+                            textDecoration: 'none'
+                        }}>Terms</a> and <a href="https://policies.google.com/privacy" style={{
+                            color: '#007bff',
+                            textDecoration: 'none'
+                        }}>Privacy</a>.
                     </p>
                 </form>
             </div>

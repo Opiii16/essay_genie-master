@@ -1,229 +1,229 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
-import './Homepage.css';
+import HeroSection from '../HeroSection/HeroSection';
+import CTABanner from '../CTABanner/CTABanner';
+import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
+import '../Pages/Page.css';
 
-const carouselImages = [
-  {
-    src: '/assets/carousel/hoodie-banner.jpg',
-    alt: 'Prosper Hood Collection',
-    title: 'NEW ARRIVALS',
-    subtitle: 'Urban Hoods Collection',
-    cta: 'SHOP NOW'
-  },
-  {
-    src: '/assets/carousel/tshirt-banner.jpg',
-    alt: 'Prosper T-Shirts',
-    title: 'SUMMER SALE',
-    subtitle: '50% OFF SELECT T-SHIRTS',
-    cta: 'DISCOVER DEALS'
-  },
-  {
-    src: '/assets/carousel/cap-banner.jpg',
-    alt: 'Prosper Caps Collection',
-    title: 'STREET STYLE',
-    subtitle: 'Trendy Caps for Every Occasion',
-    cta: 'EXPLORE'
-  }
-];
+const HomePage = () => {
+  const [selectedSubject, setSelectedSubject] = useState(null);
 
-const products = {
-  hoods: [
-    { id: 1, name: 'Urban Hoodie', price: 2500, colors: ['black', 'gray', 'navy'], image: '/assets/products/hoodies/hoodie-1.jpg' },
-    { id: 2, name: 'Street Zip Hood', price: 2800, colors: ['red', 'black'], image: '/assets/products/hoodies/hoodie-2.jpg' },
-    { id: 3, name: 'Classic Pullover', price: 2200, colors: ['white', 'green'], image: '/assets/products/hoodies/hoodie-3.jpg' }
-  ],
-  tshirts: [
-    { id: 4, name: 'Graphic Tee', price: 1200, colors: ['white', 'black'], image: '/assets/products/tshirts/tshirt-1.jpg' },
-    { id: 5, name: 'Pocket Tee', price: 1500, colors: ['gray', 'blue'], image: '/assets/products/tshirts/tshirt-2.jpg' },
-    { id: 6, name: 'Oversized Tee', price: 1800, colors: ['black', 'white'], image: '/assets/products/tshirts/tshirt-3.jpg' }
-  ],
-  caps: [
-    { id: 7, name: 'Snapback Cap', price: 800, colors: ['black', 'red'], image: '/assets/products/caps/cap-1.jpg' },
-    { id: 8, name: 'Dad Hat', price: 700, colors: ['khaki', 'navy'], image: '/assets/products/caps/cap-2.jpg' },
-    { id: 9, name: 'Bucket Hat', price: 900, colors: ['black', 'camo'], image: '/assets/products/caps/cap-3.jpg' }
-  ],
-  croptops: [
-    { id: 10, name: 'Basic Crop', price: 600, colors: ['white', 'pink'], image: '/assets/products/croptops/crop-1.jpg' },
-    { id: 11, name: 'Ribbed Crop', price: 800, colors: ['black', 'beige'], image: '/assets/products/croptops/crop-2.jpg' },
-    { id: 12, name: 'Sleeveless Crop', price: 700, colors: ['gray', 'green'], image: '/assets/products/croptops/crop-3.jpg' }
-  ]
-};
-
-const addSizesToProducts = (products) => {
-  return Object.entries(products).reduce((acc, [category, items]) => {
-    acc[category] = items.map(item => ({
-      ...item,
-      sizes: ['S', 'M', 'L', 'XL', 'XXL']
-    }));
-    return acc;
-  }, {});
-};
-
-const productsWithSizes = addSizesToProducts(products);
-
-const Homepage = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [cartNotification, setCartNotification] = useState(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === carouselImages.length - 1 ? 0 : prev + 1));
+  const servicePrices = {
+    'Essay Writing': 1500,
+    'Research Papers': 2000,
+    'Thesis Assistance': 5000,
+    'Literature Reviews': 2500,
+    'Dissertation Help': 6000,
+    'Proofreading': 1000
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? carouselImages.length - 1 : prev - 1));
+  const featuredSubjects = [
+    {
+      name: 'Essay Writing',
+      icon: '📝',
+      services: [
+        'Argumentative Essays',
+        'Persuasive Essays',
+        'Expository Essays',
+        'Narrative Essays',
+        'Admission Essays',
+        'Scholarship Essays'
+      ],
+      testimonials: [
+        {
+          name: 'Jane M.',
+          rating: 5,
+          comment: 'Helped me write the best admission essay. I got into my dream school!'
+        },
+        {
+          name: 'Ali K.',
+          rating: 4,
+          comment: 'Reliable and fast service. Will definitely use again.'
+        }
+      ]
+    },
+    {
+      name: 'Research Papers',
+      icon: '🔬',
+      services: [
+        'Quantitative Research',
+        'Qualitative Research',
+        'Case Studies',
+        'Literature Reviews',
+        'Methodology Help'
+      ],
+      testimonials: [
+        {
+          name: 'David O.',
+          rating: 5,
+          comment: 'My research paper got an A+ thanks to the detailed methodology section!'
+        }
+      ]
+    },
+    {
+      name: 'Thesis Assistance',
+      icon: '🎓',
+      services: [
+        'Proposal Writing',
+        'Data Analysis',
+        'Chapter Writing',
+        'Editing',
+        'Formatting'
+      ],
+      testimonials: [
+        {
+          name: 'Sarah T.',
+          rating: 5,
+          comment: 'Finished my thesis 2 weeks early with their help!'
+        }
+      ]
+    }
+  ];
+
+  const handleSubjectClick = (subject) => {
+    setSelectedSubject(subject);
   };
 
-  const addToCart = (product) => {
-    setCartNotification(`${product.name} added to cart`);
-    setTimeout(() => setCartNotification(null), 3000);
-    console.log('Added to cart:', product);
+  const handleBackClick = () => {
+    setSelectedSubject(null);
   };
-
-  const renderProductCard = useCallback((product) => (
-    <div key={product.id} className="product-card">
-      <div className="product-image">
-        <img 
-          src={product.image} 
-          alt={product.name}
-          loading="lazy"
-          onError={(e) => {
-            e.target.src = '/assets/fallback-image.jpg';
-            console.error(`Failed to load image: ${product.image}`);
-          }}
-        />
-      </div>
-      <div className="product-content">
-        <h3 className="product-name">{product.name}</h3>
-        <div className="product-colors">
-          {product.colors.map((color) => (
-            <span 
-              key={color} 
-              className={`color-dot ${color}`}
-              title={color}
-            ></span>
-          ))}
-        </div>
-        <div className="product-sizes">
-          {product.sizes.map((size) => (
-            <span 
-              key={size} 
-              className="size-option"
-              title={size}
-            >{size}</span>
-          ))}
-        </div>
-        <div className="product-price">{product.price.toLocaleString()} KSH</div>
-        <button
-          className="btn btn-success"
-          onClick={() => addToCart(product)}
-          aria-label={`Add ${product.name} to cart`}
-        >
-          ADD TO CART
-        </button>
-      </div>
-    </div>
-  ), []);
 
   return (
-    <div className="homepage">
-      <Navbar />
+    <div className="home-page">
+      <HeroSection />
+      <CTABanner />
 
-      {cartNotification && (
-        <div className="cart-notification">
-          {cartNotification}
-          <span className="notification-close" onClick={() => setCartNotification(null)}>
-            ×
-          </span>
-        </div>
-      )}
-
-      <section className="carousel-section">
-        <div className="carousel" role="region" aria-label="Featured products carousel">
-          <button 
-            onClick={prevSlide} 
-            className="carousel-btn prev"
-            aria-label="Previous slide"
-          >
-            ‹
-          </button>
-          <div className="carousel-slide">
-            <img 
-              src={carouselImages[currentSlide].src} 
-              alt={carouselImages[currentSlide].alt}
-              loading="lazy"
-              onError={(e) => {
-                e.target.src = '/assets/fallback-banner.jpg';
-              }}
-            />
-            <div className="carousel-text">
-              <h2>{carouselImages[currentSlide].title}</h2>
-              <p>{carouselImages[currentSlide].subtitle}</p>
-              <Link to="/shop" className="carousel-cta">
-                {carouselImages[currentSlide].cta}
-              </Link>
-            </div>
-          </div>
-          <button 
-            onClick={nextSlide} 
-            className="carousel-btn next"
-            aria-label="Next slide"
-          >
-            ›
-          </button>
-          <div className="carousel-indicators">
-            {carouselImages.map((_, index) => (
-              <button
-                key={index}
-                className={`indicator ${index === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+      <section className="tutors-section py-5">
+        <div className="container">
+          <h2 className="text-center mb-4">Explore the best tutors across the globe</h2>
+          <FeaturedTutors />
         </div>
       </section>
 
-      {isLoading ? (
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <p>Loading products...</p>
-        </div>
-      ) : (
-        Object.entries(productsWithSizes).map(([category, items]) => (
-          <section key={category} className="product-category">
-            <h2 className="section-title">
-              <Link to={`/shop/${category}`}>
-                {category.toUpperCase()} COLLECTION
-              </Link>
-            </h2>
-            <p className="section-subtitle">
-              {category === 'hoods' && 'Premium quality from 2000 KSH'}
-              {category === 'tshirts' && 'Stylish designs from 3000 KSH'}
-              {category === 'caps' && 'Trendy styles from 700 KSH'}
-              {category === 'croptops' && 'Fashionable from 500 KSH'}
-            </p>
-            <div className="product-grid">
-              {items.map(renderProductCard)}
+      <section className="subjects-section py-5 bg-light">
+        <div className="container">
+          <h2 className="text-center mb-4">Essay Genie Specializes In</h2>
+
+          {selectedSubject ? (
+            <>
+              <button onClick={handleBackClick} className="btn btn-info mb-3 fw-bold">
+                🔙 Back to Subjects
+              </button>
+              
+              <div className="text-center mb-4">
+                <h5>🎥 Watch how Essay Genie helps with {selectedSubject.name}</h5>
+                <div className="ratio ratio-16x9">
+                  <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title={`${selectedSubject.name} Intro Video`}
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+
+              {selectedSubject.testimonials && (
+                <div className="testimonial-section mb-5">
+                  <h4 className="text-center mb-3">What Students Say</h4>
+                  <div className="row justify-content-center">
+                    {selectedSubject.testimonials.map((testimonial, index) => (
+                      <div key={index} className="col-md-5 mb-3">
+                        <div className="card p-3 h-100 shadow-sm">
+                          <div className="card-body">
+                            <p className="text-warning mb-1">
+                              {'⭐'.repeat(testimonial.rating)}{' '}
+                              {'☆'.repeat(5 - testimonial.rating)}
+                            </p>
+                            <p className="mb-2">"{testimonial.comment}"</p>
+                            <small className="text-muted">– {testimonial.name}</small>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <h3 className="text-center mb-4">{selectedSubject.name} Services</h3>
+              <div className="row">
+                {selectedSubject.services.map((service, index) => (
+                  <div key={index} className="col-md-4 mb-4">
+                    <div className="card h-100">
+                      <div className="card-body d-flex flex-column">
+                        <h4 className="card-title">{service}</h4>
+                        <Link 
+                          to="/make-payment" 
+                          state={{ 
+                            service: {
+                              name: `${selectedSubject.name} - ${service}`,
+                              price: servicePrices[selectedSubject.name],
+                              description: `Professional ${service.toLowerCase()} service`
+                            },
+                            tutor: {
+                              name: 'Expert Tutor'
+                            }
+                          }}
+                          className="btn btn-info mt-auto fw-bold"
+                        >
+                          ✨ Request Service
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="row">
+              {featuredSubjects.map((subject, index) => (
+                <div key={index} className="col-md-4 mb-4">
+                  <div
+                    className="card h-100 text-center subject-card"
+                    onClick={() => handleSubjectClick(subject)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="card-body">
+                      <span className="display-4">{subject.icon}</span>
+                      <h3 className="card-title mt-3">{subject.name}</h3>
+                      <p className="text-muted mt-2">
+                        Starting from KES {servicePrices[subject.name].toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </section>
-        ))
-      )}
+          )}
+        </div>
+      </section>
+
+      <footer className="essay-genie-footer bg-dark text-white pt-4 pb-2">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <h5>Essay Genie</h5>
+              <p>Your trusted academic writing partner</p>
+            </div>
+            <div className="col-md-4">
+              <h5>Quick Links</h5>
+              <ul className="list-unstyled">
+                <li><Link to="/" className="text-white">Home</Link></li>
+                <li><Link to="/services" className="text-white">Services</Link></li>
+                <li><Link to="/tutors" className="text-white">Tutors</Link></li>
+              </ul>
+            </div>
+            <div className="col-md-4">
+              <h5>Contact</h5>
+              <p>info@essaygenie.com</p>
+              <p>+254 700 123456</p>
+            </div>
+          </div>
+          <div className="text-center mt-3">
+            <p className="mb-0">&copy; {new Date().getFullYear()} Essay Genie. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
 
-export default Homepage;
+export default HomePage;
