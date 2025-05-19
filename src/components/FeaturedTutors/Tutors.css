@@ -15,7 +15,160 @@
 }
 
 .tutors-carousel {
-  display: flex;
+  display: flex;/* FeaturedTutors/Tutors.css */
+  .featured-tutors {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .featured-tutors h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .tutors-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .tutors-carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .tutors-slides {
+    display: flex;
+  }
+  
+  .tutor-card {
+    margin: 0 15px; /* Increased margin */
+    width: 280px; /* Increased from 200px */
+    min-height: 380px; /* Added minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px; /* Slightly larger radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+    padding: 25px; /* Increased padding */
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Added hover effect */
+  }
+  
+  .tutor-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+  }
+  
+  .tutor-image {
+    width: 120px; /* Increased from 100px */
+    height: 120px; /* Increased from 100px */
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px; /* Increased margin */
+    border: 3px solid #e0e0e0; /* Slightly thicker border */
+  }
+  
+  .tutor-info {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .tutor-name {
+    font-weight: bold;
+    margin-bottom: 8px; /* Increased spacing */
+    font-size: 1.2rem; /* Slightly larger */
+  }
+  
+  .tutor-subject {
+    font-size: 1rem; /* Slightly larger */
+    color: #666;
+    margin-bottom: 15px; /* Increased spacing */
+  }
+  
+  .tutor-rating {
+    margin-bottom: 15px; /* Increased spacing */
+    color: #ff9900;
+    font-size: 1.1rem; /* Slightly larger stars */
+  }
+  
+  .tutor-price {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1rem; /* Slightly larger */
+    margin-bottom: 15px; /* Added spacing */
+  }
+  
+  .tutor-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Wider buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 8px 0; /* Increased spacing */
+    font-size: 1rem; /* Slightly larger */
+    transition: background-color 0.3s ease;
+    width: 100%; /* Full width buttons */
+  }
+  
+  .tutor-actions button:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Carousel Navigation Arrows */
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6); /* More visible */
+    color: white;
+    border: none;
+    padding: 12px; /* Larger click area */
+    font-size: 1.8rem; /* Larger arrows */
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%;
+    width: 50px; /* Fixed size */
+    height: 50px; /* Fixed size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .carousel-button.prev {
+    left: 25px;
+  }
+  
+  .carousel-button.next {
+    right: 25px;
+  }
+  
+  .carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .tutor-card {
+      width: 240px; /* Slightly smaller on mobile */
+      min-height: 360px;
+      margin: 0 10px;
+    }
+    
+    .tutor-image {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .carousel-button {
+      width: 40px;
+      height: 40px;
+      font-size: 1.5rem;
+    }
+  }
   position: relative;
 }
 

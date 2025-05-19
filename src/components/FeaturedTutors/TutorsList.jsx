@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const FeaturedTutors = () => {
   const [selectedTutor, setSelectedTutor] = useState(null);
@@ -8,6 +8,13 @@ const FeaturedTutors = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSubject, setFilterSubject] = useState('');
   const [sortOption, setSortOption] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(!!user);
+  }, []);
 
   const tutors = [
     {
@@ -63,6 +70,10 @@ const FeaturedTutors = () => {
   const subjects = [...new Set(tutors.map(t => t.subject))];
 
   const handleTutorClick = (tutor) => {
+    if (!isLoggedIn) {
+      navigate('/signin');
+      return;
+    }
     setSelectedTutor(tutor);
     setShowModal(true);
   };
@@ -81,7 +92,6 @@ const FeaturedTutors = () => {
 
   return (
     <div>
-      {/* Search + Filter Controls */}
       <div className="row mb-4">
         <div className="col-md-4">
           <input
@@ -119,7 +129,6 @@ const FeaturedTutors = () => {
         </div>
       </div>
 
-      {/* Tutors List */}
       <div className="row">
         {filteredTutors.map((tutor, index) => (
           <div key={index} className="col-md-4 mb-4">
@@ -141,13 +150,18 @@ const FeaturedTutors = () => {
                   {'⭐'.repeat(Math.floor(tutor.rating))}
                   {tutor.rating % 1 >= 0.5 && '⭐'}
                 </p>
+                <button 
+                  className="btn btn-sm btn-outline-primary mt-2"
+                  onClick={() => handleTutorClick(tutor)}
+                >
+                  View Details
+                </button>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Tutor Modal */}
       {selectedTutor && (
         <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
           <Modal.Header closeButton>
@@ -184,14 +198,14 @@ const FeaturedTutors = () => {
           </Modal.Body>
           <Modal.Footer>
             <Link
-              to="/book-meeting"
+              to={isLoggedIn ? "/book-meeting" : "/signin"}
               state={{ tutor: selectedTutor }}
               className="btn btn-primary"
             >
               📅 Book Zoom Meeting
             </Link>
             <Link
-              to="/make-payment"
+              to={isLoggedIn ? "/make-payment" : "/signin"}
               state={{
                 tutor: selectedTutor,
                 service: {

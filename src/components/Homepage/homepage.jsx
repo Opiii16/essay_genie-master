@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import HeroSection from '../HeroSection/HeroSection';
 import CTABanner from '../CTABanner/CTABanner';
 import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
@@ -7,6 +7,13 @@ import '../Pages/Page.css';
 
 const HomePage = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(!!user);
+  }, []);
 
   const servicePrices = {
     'Essay Writing': 1500,
@@ -81,6 +88,10 @@ const HomePage = () => {
   ];
 
   const handleSubjectClick = (subject) => {
+    if (!isLoggedIn) {
+      navigate('/signin');
+      return;
+    }
     setSelectedSubject(subject);
   };
 
@@ -90,12 +101,17 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <HeroSection />
+      <HeroSection /> <br />
       <CTABanner />
 
       <section className="tutors-section py-5">
         <div className="container">
           <h2 className="text-center mb-4">Explore the best tutors across the globe</h2>
+          {!isLoggedIn && (
+            <div className="alert alert-info text-center mb-4">
+              Please <Link to="/signin" className="alert-link">sign in</Link> to book sessions with our tutors
+            </div>
+          )}
           <FeaturedTutors />
         </div>
       </section>
@@ -103,6 +119,12 @@ const HomePage = () => {
       <section className="subjects-section py-5 bg-light">
         <div className="container">
           <h2 className="text-center mb-4">Essay Genie Specializes In</h2>
+
+          {!isLoggedIn && (
+            <div className="alert alert-info text-center">
+              Please <Link to="/signin" className="alert-link">sign in</Link> or <Link to="/signup" className="alert-link">create an account</Link> to access our services.
+            </div>
+          )}
 
           {selectedSubject ? (
             <>
@@ -151,7 +173,7 @@ const HomePage = () => {
                       <div className="card-body d-flex flex-column">
                         <h4 className="card-title">{service}</h4>
                         <Link 
-                          to="/make-payment" 
+                          to={isLoggedIn ? "/make-payment" : "/signin"}
                           state={{ 
                             service: {
                               name: `${selectedSubject.name} - ${service}`,
@@ -179,7 +201,7 @@ const HomePage = () => {
                   <div
                     className="card h-100 text-center subject-card"
                     onClick={() => handleSubjectClick(subject)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: isLoggedIn ? 'pointer' : 'not-allowed', opacity: isLoggedIn ? 1 : 0.7 }}
                   >
                     <div className="card-body">
                       <span className="display-4">{subject.icon}</span>
@@ -187,6 +209,11 @@ const HomePage = () => {
                       <p className="text-muted mt-2">
                         Starting from KES {servicePrices[subject.name].toLocaleString()}
                       </p>
+                      {!isLoggedIn && (
+                        <div className="mt-3 text-danger">
+                          Sign in to access
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

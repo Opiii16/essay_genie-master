@@ -14,8 +14,12 @@ import ChatButton from './components/Chatbutton';
 import './App.css';
 
 // Payment pages
+import AccountSetting from './components/AccountSetting/AccountSetting';
+import Profile from './components/Profile/Profile';
 import MakePayment from './components/Makepayment/Makepayment';
 import BookMeeting from './components/BookMeeting/BookMeeting';
+import AboutUs from './components/AboutUs/AboutUs';
+
 
 import PaymentSuccess from './components/Makepayment/PaymentSuccess';
 import MyOrders from './components/Makepayment/MyOrders';  // Add import for the new MyOrders page
@@ -37,10 +41,15 @@ function App() {
 
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/account-setting" element={<AccountSetting />} />
+
+
 
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/tutors" element={<FeaturedTutorsPage />} />
             <Route path="/book-meeting" element={<BookMeeting />} />
+            <Route path="/about-us" element={<AboutUs />} />
 
             {/* Payment routes */}
             <Route path="/make-payment" element={<MakePayment />} />

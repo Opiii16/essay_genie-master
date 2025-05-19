@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        username: '',
+        phone: '',
         email: '',
         password: '',
         subscribe: true
@@ -42,8 +42,8 @@ const Signup = () => {
 
         try {
             const data = new FormData();
-            data.append("firstname", formData.firstName);
-            data.append("lastname", formData.lastName);
+            data.append("username", formData.username);
+            data.append("phone", formData.phone);
             data.append("email", formData.email);
             data.append("password", formData.password);
 
@@ -55,10 +55,9 @@ const Signup = () => {
             setLoading("");
             setSuccess(response.data.Success || "Signup successful!");
             
-            // Reset form
             setFormData({
-                firstName: '',
-                lastName: '',
+                username: '',
+                phone: '',
                 email: '',
                 password: '',
                 subscribe: true
@@ -126,9 +125,9 @@ const Signup = () => {
                         <div style={{ flex: 1 }}>
                             <input
                                 type="text"
-                                name="firstName"
-                                placeholder="First Name"
-                                value={formData.firstName}
+                                name="username"
+                                placeholder="Username"
+                                value={formData.username}
                                 onChange={handleChange}
                                 required
                                 style={{
@@ -142,10 +141,10 @@ const Signup = () => {
                         </div>
                         <div style={{ flex: 1 }}>
                             <input
-                                type="text"
-                                name="lastName"
-                                placeholder="Last Name"
-                                value={formData.lastName}
+                                type="tel"
+                                name="phone"
+                                placeholder="Phone Number"
+                                value={formData.phone}
                                 onChange={handleChange}
                                 required
                                 style={{
@@ -260,7 +259,7 @@ const Signup = () => {
                         marginTop: '16px',
                         fontSize: '14px'
                     }}>
-                        Already have an account? <a href="/login" style={{
+                        Already have an account? <a href="/signin" style={{
                             color: '#007bff',
                             textDecoration: 'none'
                         }}>Sign in</a>
