@@ -35,8 +35,8 @@ function App() {
             
             <Route path="/services" element={<ServicesPage />}>
               <Route index element={<ServiceOverview />} />
-              <Route path="essays" element={<EssayServicePage />} />
-              <Route path="research-papers" element={<ResearchPaperServicePage />} />
+              <Route path="/essays" element={<EssayServicePage />} />
+              <Route path="/research-papers" element={<ResearchPaperServicePage />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />
