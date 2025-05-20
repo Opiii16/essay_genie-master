@@ -189,7 +189,7 @@ const Navbar = () => {
                   aria-labelledby="userDropdown"
                 >
                   <li>
-                    <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>
+                    <Link to="/ocean-section" className="dropdown-item" onClick={() => setShowDropdown(false)}>
                       <i className="bi bi-person me-2"></i>Profile
                     </Link>
                   </li>

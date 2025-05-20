@@ -24,6 +24,8 @@ import AboutUs from './components/AboutUs/AboutUs';
 import PaymentSuccess from './components/Makepayment/PaymentSuccess';
 import MyOrders from './components/Makepayment/MyOrders';  // Add import for the new MyOrders page
 import WhatsAppButton from './components/Whatsapp/Whatsapp.jsx';
+import TidioChat from './components/TidioChat/TidioChat.jsx';
+import OceanSection from './components/OceanSection/OceanSection.jsx';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
       <div className="app-container">
         <Navbar />
         <WhatsAppButton />
+       
         <main className="app-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -45,7 +48,10 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/account-setting" element={<AccountSetting />} />
+            <Route path="/ocean-section" element={<OceanSection/>} />
             <Route path="/whatsapp" element={<WhatsAppButton />} />
+            <Route path="/tidiochat" element={<TidioChat />} />
+
 
 
 

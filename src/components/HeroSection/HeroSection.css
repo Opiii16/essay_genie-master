@@ -1,173 +1,59 @@
-.hero {
-  padding: 1rem;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  background-color: white; /* fallback */
-  text-align: left; /* Changed from center to left */
-}
-
-.hero h1 {
-  color: rgb(9, 252, 179);
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.hero-tagline {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 2.25rem;
-  color: #8B0000; /* Deep red for elegance */
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.marquee-text {
-  display: inline-block;
-  animation: marquee 12s linear infinite;
-}
-
-/* Animation keyframes */
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.marquee-container {
-  width: 100%;
-  overflow: hidden;
-}
-/* .hero {
-  text-align: center;
-  padding: 100px 20px;
-  background: linear-gradient(rgba(0,0,0,0.5))
-  color: white;
-} */
-
 .hero-content {
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-.hero-tagline {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
-}
-
-/* NEW STYLES for the Get Started button */
-.button-wrapper {
-  text-align: right; /* align the button to the right */
-}
-
-.get-started-button {
-  background-color: #0dcaf0; /* Bootstrap info color */
-  border: none;
-  color: white;
-  padding: 12px 25px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.get-started-button:hover {
-  background-color: #0bb2d4; /* Darker info color */
-}
-/* Hero Section Styles */
-.hero {
-  background: linear-gradient(135deg, #4865c5, #05e8f0);
-  color: white;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align content to the left */
+  padding: 0 20px;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 1.5rem;
+  align-self: flex-start;
+  margin-bottom: 20px;
 }
 
 .hero-logo {
-  width: 150px; /* Increased from default size */
+  max-width: 160px;
   height: auto;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
+.hero-title {
+  font-size: 48px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: left;
 }
 
 .hero-tagline {
-  font-size: 1.25rem;
-  margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 20px;
+  margin-bottom: 40px;
+  font-style: italic;
+  color: #555;
+  text-align: left;
 }
 
 .button-wrapper {
-  margin-top: 2rem;
+  width: 100%;
+}
+
+.right-align {
+  display: flex;
+  justify-content: flex-end; /* Pushes button to the right */
 }
 
 .get-started-button {
-  background-color: #060552;
-  color: white;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 18px;
   border: none;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
+  transition: background 0.3s ease;
+  font-family: 'Georgia', serif;
 }
 
 .get-started-button:hover {
-  background-color: #ff5252;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #1a242f;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero {
-    padding: 3rem 1rem;
-  }
-  
-  .hero h1 {
-    font-size: 2rem;
-  }
-  
-  .hero-tagline {
-    font-size: 1.1rem;
-  }
-  
-  .hero-logo {
-    width: 250px;
-  }
-}
-.hero {
-  margin-bottom: 3rem; /* Adjust this value as needed */
-  /* ... your existing hero styles ... */
-}
-
-
-
-
-
-

@@ -5,6 +5,7 @@ import CTABanner from '../CTABanner/CTABanner';
 import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
 import '../Pages/Page.css';
 import WhatsAppButton from '../Whatsapp/Whatsapp';
+import OceanSection from '../OceanSection/OceanSection';
 
 const HomePage = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -116,8 +117,10 @@ const HomePage = () => {
           )}
           <FeaturedTutors />
           <WhatsAppButton />
+          <OceanSection />
         </div>
       </section>
+      
 
       <section className="subjects-section py-5 bg-light">
         <div className="container">
