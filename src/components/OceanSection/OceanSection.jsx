@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const OceanSection = () => {
+  const navigate = useNavigate();
+
   const styles = {
     section: {
       backgroundImage: 'linear-gradient(rgba(0, 119, 190, 0.7), rgba(0, 161, 224, 0.7)), url("https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80")',
@@ -104,7 +107,6 @@ const OceanSection = () => {
     },
   };
 
-  // Hover handlers with animation
   const handleHover = (e) => {
     Object.assign(e.target.style, styles.buttonHover);
   };
@@ -115,6 +117,10 @@ const OceanSection = () => {
       transform: 'none',
       boxShadow: styles.button.boxShadow,
     });
+  };
+
+  const handleClick = () => {
+    navigate('/essays'); // Navigate to essays page
   };
 
   return (
@@ -131,13 +137,12 @@ const OceanSection = () => {
             style={styles.button}
             onMouseEnter={handleHover}
             onMouseLeave={handleHoverEnd}
+            onClick={handleClick}
           >
-            <span style={styles.bookIcon}>📚</span> Start Reading Now
+            <span style={styles.bookIcon}>📚</span> Start Reading Now 
           </button>
         </div>
       </div>
-      
-      
     </section>
   );
 };

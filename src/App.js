@@ -26,6 +26,7 @@ import MyOrders from './components/Makepayment/MyOrders';  // Add import for the
 import WhatsAppButton from './components/Whatsapp/Whatsapp.jsx';
 import TidioChat from './components/TidioChat/TidioChat.jsx';
 import OceanSection from './components/OceanSection/OceanSection.jsx';
+import Essays from './components/Essays/Essays.jsx';
 
 function App() {
   return (
@@ -51,6 +52,8 @@ function App() {
             <Route path="/ocean-section" element={<OceanSection/>} />
             <Route path="/whatsapp" element={<WhatsAppButton />} />
             <Route path="/tidiochat" element={<TidioChat />} />
+            <Route path="/essays" element={<Essays/>} />
+
 
 
 

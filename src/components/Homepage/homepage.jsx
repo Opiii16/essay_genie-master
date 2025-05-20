@@ -104,7 +104,9 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <HeroSection /> <br />
+    
       <CTABanner />
+      <OceanSection />
       <WhatsAppButton />
 
       <section className="tutors-section py-5">
