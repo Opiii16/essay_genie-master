@@ -1,25 +1,42 @@
 import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
-import './Whatsapp.css'; // Optional for additional styling
 
 const WhatsAppButton = () => {
-  const whatsappNumber = '1234567890'; // Replace with your actual WhatsApp number
-  const message = 'Hello EssayGenie, I need help with my essay!'; // Default message
+  const whatsappNumber = '0717778496'; // Replace with your actual number
+  const message = 'Hello EssayGenie, I need help with my essay!';
   
   const handleClick = () => {
-    // Open WhatsApp with the predefined message
     window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <div className="whatsapp-button-container">
+    <div style={{
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      zIndex: '1000'
+    }}>
       <button 
         onClick={handleClick}
-        className="whatsapp-button"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '10px',
+          padding: '15px 25px',
+          backgroundColor: '#25D366',
+          color: 'white',
+          border: 'none',
+          borderRadius: '50px',
+          fontWeight: '600',
+          cursor: 'pointer',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          fontSize: '16px'
+        }}
         aria-label="Contact us on WhatsApp"
       >
-        <FaWhatsapp className="whatsapp-icon" />
-        <span className="whatsapp-text">Chat on WhatsApp</span>
+        <FaWhatsapp style={{ fontSize: '24px' }} />
+        <span>Chat on WhatsApp</span>
       </button>
     </div>
   );

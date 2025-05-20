@@ -30,14 +30,15 @@ function App() {
     <Router>
       <div className="app-container">
         <Navbar />
+        <WhatsAppButton />
         <main className="app-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
             
-            <Route path="/services" element={<ServicesPage />}>
+            <Route path="services" element={<ServicesPage />}>
               <Route index element={<ServiceOverview />} />
-              <Route path="/essays" element={<EssayServicePage />} />
-              <Route path="/research-papers" element={<ResearchPaperServicePage />} />
+              <Route path="essays" element={<EssayServicePage />} />
+              <Route path="research-papers" element={<ResearchPaperServicePage />} />
             </Route>
 
             <Route path="/signin" element={<Signin />} />

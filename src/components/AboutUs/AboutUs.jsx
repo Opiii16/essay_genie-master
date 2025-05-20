@@ -67,6 +67,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+      
 
       {/* Values Section */}
       <section className="values-section">
@@ -102,7 +103,9 @@ const AboutUs = () => {
             </Link>
             <Link to="/contact" className="cta-button secondary">
               Contact Our Team
+             
             </Link>
+           
           </div>
         </div>
       </section>

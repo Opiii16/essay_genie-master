@@ -4,6 +4,7 @@ import HeroSection from '../HeroSection/HeroSection';
 import CTABanner from '../CTABanner/CTABanner';
 import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
 import '../Pages/Page.css';
+import WhatsAppButton from '../Whatsapp/Whatsapp';
 
 const HomePage = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -103,6 +104,7 @@ const HomePage = () => {
     <div className="home-page">
       <HeroSection /> <br />
       <CTABanner />
+      <WhatsAppButton />
 
       <section className="tutors-section py-5">
         <div className="container">
@@ -113,6 +115,7 @@ const HomePage = () => {
             </div>
           )}
           <FeaturedTutors />
+          <WhatsAppButton />
         </div>
       </section>
 
