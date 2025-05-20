@@ -17,6 +17,11 @@ const Signup = () => {
         letter: false,
         number: false,
     });
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -176,9 +181,9 @@ const Signup = () => {
                         />
                     </div>
 
-                    <div>
+                    <div style={{ position: 'relative' }}>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             placeholder="Password"
                             value={formData.password}
@@ -189,9 +194,37 @@ const Signup = () => {
                                 borderRadius: '4px',
                                 border: '1px solid #ddd',
                                 fontSize: '16px',
-                                width: '100%'
+                                width: '100%',
+                                paddingRight: '40px' // Make space for the eye icon
                             }}
                         />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            style={{
+                                position: 'absolute',
+                                right: '10px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '5px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <img 
+                                src="/assets/images/eye.svg" 
+                                alt="Toggle password visibility" 
+                                style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    filter: showPassword ? 'brightness(0.7)' : 'none'
+                                }}
+                            />
+                        </button>
                         <div style={{
                             marginTop: '8px',
                             fontSize: '14px'

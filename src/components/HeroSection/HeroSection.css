@@ -1,5 +1,5 @@
 .hero {
-  padding: 2rem;
+  padding: 1rem;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   background-color: white; /* fallback */
   text-align: left; /* Changed from center to left */

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const Signin = () => {
     const [emailUsername, setEmailUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
@@ -37,6 +39,10 @@ const Signin = () => {
         console.log({ emailUsername, password });
         setEmailUsername('');
         setPassword('');
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -84,19 +90,47 @@ const Signin = () => {
                             fontSize: '16px'
                         }}
                     />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        style={{
-                            padding: '12px',
-                            borderRadius: '4px',
-                            border: '1px solid #ddd',
-                            fontSize: '16px'
-                        }}
-                    />
+                    <div style={{ position: 'relative' }}>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            style={{
+                                padding: '12px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                fontSize: '16px',
+                                width: '100%',
+                                paddingRight: '40px' // Make space for the eye icon
+                            }}
+                        />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            style={{
+                                position: 'absolute',
+                                right: '10px',
+                                top: '50%',
+                                transform: 'translateY(-50%)',
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                padding: '5px'
+                            }}
+                        >
+                            <img 
+                                src='/assets/images/eye.svg' 
+                                alt="Toggle password visibility" 
+                                style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    filter: showPassword ? 'brightness(0.7)' : 'none'
+                                }}
+                            />
+                        </button>
+                    </div>
                     <button 
                         type="submit"
                         style={{
