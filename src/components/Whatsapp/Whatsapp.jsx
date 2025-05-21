@@ -17,12 +17,15 @@ const WhatsAppButton = () => {
       position: 'fixed',
       bottom: '20px',
       right: '20px',
-      zIndex: '1000'
+      zIndex: '1000',
+      display: 'flex', 
+      alignItems: 'center'
     }}>
       <button 
         onClick={handleClick}
         style={{
           display: 'flex',
+          marginLeft: '10px'
           alignItems: 'center',
           justifyContent: 'center',
           gap: '10px',
@@ -38,7 +41,8 @@ const WhatsAppButton = () => {
         }}
         aria-label="Contact us on WhatsApp"
       >
-        <FaWhatsapp style={{ fontSize: '24px' }} />
+        
+        <FaWhatsapp style={{ fontSize: '24px',display: 'flex', alignItems: 'center' }} />
         <span>Chat on WhatsApp</span>
       </button>
     </div>
