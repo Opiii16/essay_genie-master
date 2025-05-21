@@ -6,6 +6,7 @@ import FeaturedTutors from '../FeaturedTutors/FeaturedTutors';
 import '../Pages/Page.css';
 import WhatsAppButton from '../Whatsapp/Whatsapp';
 import OceanSection from '../OceanSection/OceanSection';
+import AskedQuestions from '../AskedQuestions/AskedQuestions';
 
 const HomePage = () => {
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -120,6 +121,7 @@ const HomePage = () => {
           <FeaturedTutors />
           <WhatsAppButton />
           <OceanSection />
+         
         </div>
       </section>
       
@@ -230,6 +232,8 @@ const HomePage = () => {
           )}
         </div>
       </section>
+
+      <AskedQuestions />
 
       <footer className="essay-genie-footer bg-dark text-white pt-4 pb-2">
         <div className="container">

@@ -27,6 +27,7 @@ import WhatsAppButton from './components/Whatsapp/Whatsapp.jsx';
 import TidioChat from './components/TidioChat/TidioChat.jsx';
 import OceanSection from './components/OceanSection/OceanSection.jsx';
 import Essays from './components/Essays/Essays.jsx';
+import AskedQuestions from './components/AskedQuestions/AskedQuestions.jsx';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
             <Route path="/whatsapp" element={<WhatsAppButton />} />
             <Route path="/tidiochat" element={<TidioChat />} />
             <Route path="/essays" element={<Essays/>} />
+            <Route path="/asked-questions" element={<AskedQuestions/>} />
 
 
 
