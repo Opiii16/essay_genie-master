@@ -8,7 +8,7 @@ function Services() {
       <Link to="/essay-writing">Essay Writing</Link>
       <Link to="/take-my-online-classes">Take My Online Classes</Link>
       <Link to="/homework-help">Homework Help</Link>
-      <Link to="/coursework-help">Coursework Help</Link>
+      <Link to="/asked-questions">EssayGenie Ai</Link>
     </div>
   );
 }

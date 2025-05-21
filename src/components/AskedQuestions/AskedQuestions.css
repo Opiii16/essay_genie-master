@@ -203,3 +203,120 @@
       padding: 20px;
     }
   }
+  /* Essay Output Section */
+.essay-output-section {
+  margin-top: 40px;
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.essay-output-section h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.essay-output {
+  background: white;
+  padding: 20px;
+  border-radius: 4px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.essay-output p {
+  margin-bottom: 15px;
+}
+
+.download-button, .regenerate-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.download-button {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.regenerate-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  text-align: center;
+  padding: 30px;
+}
+
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* Form Improvements */
+.essay-topic-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.essay-type-select, .academic-level-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+}
+
+.word-count-slider {
+  width: 100%;
+  margin: 10px 0 5px;
+}
+
+.word-count-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+  margin-top: -5px;
+}
+
+.generate-button i {
+  margin-right: 8px;
+}
+
+.fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
+}

@@ -21,7 +21,7 @@ const CTABanner = () => {
       title: "Transform your writing with AI-powered assistance",
       subtitle: "SMART WRITING TOOLS",
       cta: "Try Our Features",
-      link: "/features"
+      link: "/asked-questions"
     },
     {
       desktopImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",

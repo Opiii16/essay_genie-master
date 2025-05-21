@@ -37,7 +37,7 @@
   /* Responsive styles */
   @media (max-width: 768px) {
     .whatsapp-button {
-      padding: 10px 20px;
+      padding: 10px 10px;
       font-size: 14px;
     }
     
@@ -54,7 +54,7 @@
     .whatsapp-button {
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      right: 40px;
       width: 60px;
       height: 60px;
       border-radius: 50%;

@@ -1,58 +1,109 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import './TidioChat.css'; // We'll create this CSS file
 
 const TidioChat = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  // Initialize with a welcome message when opened
   useEffect(() => {
-    // Load Tidio script
-    const script = document.createElement('script');
-    script.src = "//code.tidio.co/YOUR_TIDIO_KEY.js";
-    script.async = true;
-    document.body.appendChild(script);
+    if (isOpen && messages.length === 0) {
+      setMessages([{ sender: 'Soma', text: 'Hello! How can I assist you today?' }]);
+    }
+  }, [isOpen]);
 
-    return () => {
-      // Cleanup on component unmount
-      const tidioScript = document.querySelector('#tidio-chat-code');
-      if (tidioScript) {
-        document.body.removeChild(tidioScript);
+  // Function to send message to Flask backend
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return;
+
+    // Add user message to chat
+    const userMessage = { sender: 'You', text: newMessage };
+    setMessages(prev => [...prev, userMessage]);
+    setNewMessage('');
+    setIsTyping(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: newMessage }),
+      });
+
+      const data = await response.json();
+      
+      // Add bot response to chat
+      if (data.response) {
+        setMessages(prev => [...prev, { sender: 'Soma', text: data.response }]);
       }
-    };
-  }, []);
 
-  // Optional: Custom button to trigger Tidio chat
-  const openTidioChat = () => {
-    if (window.tidioChatApi) {
-      window.tidioChatApi.open();
-    } else {
-      console.log('Tidio chat not loaded yet');
+      // Close chat if user said 'quit'
+      if (data.status === 'end') {
+        setTimeout(() => setIsOpen(false), 2000);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, { 
+        sender: 'Soma', 
+        text: "Sorry, I'm having trouble connecting. Please try again later." 
+      }]);
+    } finally {
+      setIsTyping(false);
     }
   };
 
   return (
     <div className="tidio-wrapper">
-      {/* Optional custom trigger button */}
+      {/* Floating chat button */}
       <button 
-        onClick={openTidioChat}
+        onClick={() => setIsOpen(!isOpen)}
         className="tidio-custom-button"
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          backgroundColor: '#2D3748',
-          color: 'white',
-          border: 'none',
-          borderRadius: '50%',
-          width: '60px',
-          height: '60px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 9998,
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-        }}
         aria-label="Open live chat"
       >
-        💬
+        {isOpen ? '×' : '💬'}
       </button>
+
+      {/* Chat window */}
+      {isOpen && (
+        <div className="tidio-chat-window">
+          <div className="chat-header">
+            <h5>Chat with Soma</h5>
+            <button onClick={() => setIsOpen(false)} className="close-btn">×</button>
+          </div>
+          <div className="chat-body">
+            <div className="chat-messages">
+              {messages.map((msg, index) => (
+                <div 
+                  key={index} 
+                  className={`message ${msg.sender === 'You' ? 'message-sent' : 'message-received'}`}
+                >
+                  <strong>{msg.sender}:</strong> {msg.text}
+                </div>
+              ))}
+              {isTyping && (
+                <div className="message message-received">
+                  <strong>Soma:</strong> <span className="typing-indicator">...</span>
+                </div>
+              )}
+            </div>
+            <div className="chat-input-container">
+              <input 
+                type="text" 
+                className="chat-input" 
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)} 
+                placeholder="Type a message..." 
+                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+              />
+              <button className="send-btn" onClick={sendMessage}>Send</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -35,6 +35,7 @@ function App() {
       <div className="app-container">
         <Navbar />
         <WhatsAppButton />
+        <TidioChat />
        
         <main className="app-content">
           <Routes>
