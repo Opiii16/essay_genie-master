@@ -1,63 +1,65 @@
+/* whatsapp.css */
+
 .whatsapp-button-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-  }
-  
+  position: fixed;
+  bottom: 60px; 
+  right: 70px;
+  z-index: 2147483646; /* Slightly lower than Tidio (2147483647) */
+}
+
+.whatsapp-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background-color: #25D366;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-button:hover {
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.whatsapp-button:active {
+  transform: translateY(0);
+}
+
+.whatsapp-icon {
+  font-size: 24px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .whatsapp-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background-color: #25D366;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 14px;
   }
-  
-  .whatsapp-button:hover {
-    background-color: #128C7E;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+
+  .whatsapp-text {
+    display: none;
   }
-  
-  .whatsapp-button:active {
-    transform: translateY(0);
-  }
-  
+
   .whatsapp-icon {
-    font-size: 24px;
+    font-size: 32px;
   }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .whatsapp-button {
-      padding: 10px 10px;
-      font-size: 14px;
-    }
-    
-    .whatsapp-text {
-      display: none;
-    }
-    
-    .whatsapp-icon {
-      font-size: 32px;
-    }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-button {
+    bottom: 100px; /* Still below Tidio on mobile */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    padding: 10px;
   }
-  
-  @media (max-width: 480px) {
-    .whatsapp-button {
-      position: fixed;
-      bottom: 20px;
-      right: 40px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      z-index: 1000;
-    }
-  }
+}

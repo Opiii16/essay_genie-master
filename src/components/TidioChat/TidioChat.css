@@ -1,7 +1,7 @@
 /* Floating chat button */
 .tidio-custom-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 100px;
     right: 20px;
     background-color: #2D3748;
     color: white;
