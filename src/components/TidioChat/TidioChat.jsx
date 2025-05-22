@@ -14,9 +14,9 @@ const TidioChat = () => {
     
     setTimeout(() => {
       if (inputValue.toLowerCase().includes('hey') || inputValue.toLowerCase().includes('hi')) {
-        setMessages(prev => [...prev, { text: "Hi there! What can I help you with?", sender: "bot" }]);
-      } else {
         setMessages(prev => [...prev, { text: "I'm an AI assistant. How can I help you today?", sender: "bot" }]);
+      } else {
+        setMessages(prev => [...prev, { text: "Yes i can!!! Please hold on for a minute while our support team connects with you...", sender: "bot" }]);
       }
     }, 500);
 
