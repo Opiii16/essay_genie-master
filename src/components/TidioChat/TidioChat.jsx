@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const TidioChat = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello! How can I assist you today?", sender: "bot" }
+    { text: "Hello! How are you?", sender: "bot" }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -16,7 +16,7 @@ const TidioChat = () => {
       if (inputValue.toLowerCase().includes('hey') || inputValue.toLowerCase().includes('hi')) {
         setMessages(prev => [...prev, { text: "I'm an AI assistant. How can I help you today?", sender: "bot" }]);
       } else {
-        setMessages(prev => [...prev, { text: "Yes i can!!! Please hold on for a minute while our support team connects with you...", sender: "bot" }]);
+        setMessages(prev => [...prev, { text: "Yes i can!!! Please hold on for a minute while our support team connects with you...Thank you for reaching out", sender: "bot" }]);
       }
     }, 500);
 
