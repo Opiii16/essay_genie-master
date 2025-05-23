@@ -35,14 +35,13 @@ const TidioChat = () => {
 
   return (
     <div style={{ position: 'fixed', bottom: '40px', right: '20px', zIndex: 1000 }}>
-      {/* EssayGenie Icon - Replaced WhatsApp icon */}
+      {/* EssayGenie Icon */}
       <div 
         onClick={toggleChat}
         style={{
           position: 'absolute',
           bottom: '0',
           right: isChatOpen ? '380px' : '0',
-          // backgroundColor: '#000000', // Changed from WhatsApp green to white
           color: 'white',
           borderRadius: '50%',
           width: '50px',
@@ -54,7 +53,8 @@ const TidioChat = () => {
           cursor: 'pointer',
           transition: 'right 0.3s ease',
           zIndex: 1001,
-          border: '1px solid #ccc' // Added border for visibility
+          border: '1px solid #ccc',
+          background: 'linear-gradient(135deg, #0077b6, #00b4d8)'
         }}
       >
         <img 
@@ -68,25 +68,49 @@ const TidioChat = () => {
         />
       </div>
 
-      {/* Chat Widget - No changes below this line */}
+      {/* Chat Widget */}
       {isChatOpen && (
         <div style={{ 
           width: '350px',
           border: '1px solid #ccc',
           borderRadius: '8px',
-          padding: '16px',
+          padding: '0',
           backgroundColor: '#f9f9f9',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+          boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+          overflow: 'hidden'
         }}>
-          <h3 style={{ marginTop: 0 }}>Chat with Soma</h3>
+          {/* Chat header with gradient */}
+          <div style={{
+            padding: '12px 16px',
+            background: 'linear-gradient(135deg, #0077b6, #7400b8)',
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <h3 style={{ margin: 0 }}>Chat with Soma</h3>
+            <button 
+              onClick={toggleChat}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'white',
+                fontSize: '18px',
+                cursor: 'pointer',
+                padding: '0',
+                margin: '0'
+              }}
+            >
+              ×
+            </button>
+          </div>
           
+          {/* Chat messages */}
           <div style={{ 
             height: '250px', 
             overflowY: 'auto',
-            marginBottom: '16px',
-            padding: '8px',
-            backgroundColor: 'white',
-            borderRadius: '4px'
+            padding: '16px',
+            backgroundColor: 'white'
           }}>
             {messages.map((msg, index) => (
               <div key={index} style={{ 
@@ -97,8 +121,11 @@ const TidioChat = () => {
                   display: 'inline-block',
                   padding: '8px 12px',
                   borderRadius: msg.sender === 'user' ? '12px 12px 0 12px' : '12px 12px 12px 0',
-                  backgroundColor: msg.sender === 'user' ? '#007bff' : '#e9ecef',
-                  color: msg.sender === 'user' ? 'white' : 'black'
+                  background: msg.sender === 'user' 
+                    ? 'linear-gradient(135deg, #0077b6, #00b4d8)' 
+                    : 'linear-gradient(135deg, #f8f9fa, #e9ecef)',
+                  color: msg.sender === 'user' ? 'white' : 'black',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
                 }}>
                   {msg.text}
                 </div>
@@ -106,34 +133,48 @@ const TidioChat = () => {
             ))}
           </div>
 
-          <div style={{ display: 'flex' }}>
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type a message..."
-              style={{
-                flex: 1,
-                padding: '8px',
-                borderRadius: '4px',
-                border: '1px solid #ccc',
-                marginRight: '8px'
-              }}
-            />
-            <button
-              onClick={handleSendMessage}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#007bff',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Send
-            </button>
+          {/* Input area */}
+          <div style={{ 
+            padding: '12px 16px',
+            backgroundColor: '#f1f1f1',
+            borderTop: '1px solid #ddd'
+          }}>
+            <div style={{ display: 'flex' }}>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type a message..."
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  borderRadius: '20px',
+                  border: '1px solid #ccc',
+                  marginRight: '8px',
+                  outline: 'none',
+                  fontSize: '14px'
+                }}
+              />
+              <button
+                onClick={handleSendMessage}
+                style={{
+                  padding: '8px 16px',
+                  background: 'linear-gradient(135deg, #0077b6, #7400b8)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  transition: 'all 0.2s ease',
+                  ':hover': {
+                    opacity: 0.9
+                  }
+                }}
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       )}

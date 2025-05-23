@@ -26,6 +26,7 @@ import MyOrders from './components/Makepayment/MyOrders';  // Add import for the
 import WhatsAppButton from './components/Whatsapp/Whatsapp.jsx';
 import TidioChat from './components/TidioChat/TidioChat.jsx';
 import OceanSection from './components/OceanSection/OceanSection.jsx';
+import RevisionQuestions from './components/RevisionQuestions/RevisionQuestions.jsx';
 import Essays from './components/Essays/Essays.jsx';
 import AskedQuestions from './components/AskedQuestions/AskedQuestions.jsx';
 
@@ -53,6 +54,7 @@ function App() {
             <Route path="/account-setting" element={<AccountSetting />} />
             <Route path="/ocean-section" element={<OceanSection/>} />
             <Route path="/whatsapp" element={<WhatsAppButton />} />
+            <Route path="/revision-questions" element={<RevisionQuestions />} />
             <Route path="/tidiochat" element={<TidioChat />} />
             <Route path="/essays" element={<Essays/>} />
             <Route path="/asked-questions" element={<AskedQuestions/>} />
