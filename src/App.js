@@ -10,7 +10,7 @@ import EssayServicePage from './components/Pages/services/EssayServicePage.jsx';
 import ServiceOverview from './components/Pages/services/ServicesOverview.jsx';
 import ResearchPaperServicePage from './components/Pages/services/ResearchPaperServicePage.jsx';
 import FeaturedTutorsPage from './components/FeaturedTutors/FeaturedTutors.jsx';
-import ChatButton from './components/Chatbutton';
+// import ChatButton from './components/Chatbutton';
 import './App.css';
 
 // Payment pages
@@ -75,7 +75,7 @@ function App() {
             <Route path="/my-orders" element={<MyOrders />} />  {/* Add route for MyOrders */}
           </Routes>
 
-          <ChatButton />
+          {/* <ChatButton /> */}
         </main>
       </div>
     </Router>
