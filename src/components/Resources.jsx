@@ -6,7 +6,7 @@ function Resources() {
   return (
     <div className="dropdown-content">
       <Link to="/revision-questions">300k+ Revision Questions with Answers</Link>
-      <Link to="/sample-papers">Sample Papers</Link>
+      <Link to="/revision-questions">Sample Papers</Link>
       <Link to="/book-meeting">Virtual Meeting with Tutors</Link>
     </div>
   );
