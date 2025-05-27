@@ -6,6 +6,10 @@ import './Navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { 
+  
+  FaChartLine 
+} from 'react-icons/fa';
 
 const Navbar = () => {
   const [showServices, setShowServices] = useState(false);
@@ -200,7 +204,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/account-setting" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                      <i className="bi bi-gear me-2"></i>Account Settings
+                     <FaChartLine className="me-2" /> Account Settings
                     </Link>
                   </li>
 

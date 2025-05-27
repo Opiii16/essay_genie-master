@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api'; // Adjust based on your backend URL
+const API_BASE_URL = 'http://oprahjane16pythonanywhere/api'; // Adjust based on your backend URL
 
 // Get all tutors
 export const getTutors = async () => {
