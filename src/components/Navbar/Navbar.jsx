@@ -204,13 +204,13 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/account-setting" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                     <FaChartLine className="me-2" /> Account Settings
+                    <i className="bi bi-gear me-2"></i>Account Settings
                     </Link>
                   </li>
 
                   <li>
                     <Link to="/admin" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                      <i className="bi bi-gear me-2"></i>Admin Dashboard
+                    <FaChartLine className="me-2" />Admin Dashboard
                     </Link>
                   </li>
                   <li><hr className="dropdown-divider" /></li>
