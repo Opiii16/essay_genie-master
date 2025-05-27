@@ -203,6 +203,12 @@ const Navbar = () => {
                       <i className="bi bi-gear me-2"></i>Account Settings
                     </Link>
                   </li>
+
+                  <li>
+                    <Link to="/admin" className="dropdown-item" onClick={() => setShowDropdown(false)}>
+                      <i className="bi bi-gear me-2"></i>Admin Dashboard
+                    </Link>
+                  </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
                     <button 

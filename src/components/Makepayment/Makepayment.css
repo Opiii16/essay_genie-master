@@ -19,3 +19,10 @@
   .payment-card .btn-success:hover {
     background-color: #218838;
   }
+  .payment-form-container {
+    min-height: 200px; /* Ensures consistent height when switching methods */
+  }
+  
+  .btn-group .btn {
+    min-width: 120px; /* Makes buttons more balanced */
+  }

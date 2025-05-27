@@ -3,6 +3,10 @@ import Navbar from './components/Navbar/Navbar';
 import HomePage from './components/Pages/HomePage.jsx';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
+import Admindashboard from './components/Admindashboard.jsx';
+import AddTutorForm from './components/AddTutorForm';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ServicesPage from './components/Pages/ServicesPage.jsx';
 import ResourcesPage from './components/Pages/ResourcesPage.jsx';
@@ -50,6 +54,8 @@ function App() {
 
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/admin" element={<Admindashboard/>} />
+            <Route path="/tutor-form" element={<AddTutorForm/>} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/account-setting" element={<AccountSetting />} />
             <Route path="/ocean-section" element={<OceanSection/>} />
