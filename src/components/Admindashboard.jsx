@@ -5,7 +5,6 @@ import {
   FaEdit, 
   FaTrash, 
   FaChartLine, 
-   
   FaBook, 
   FaFileAlt,
   FaTools,
@@ -19,7 +18,8 @@ import {
   getResources, 
   deleteResource,
   getEssays,
-  deleteEssay
+  deleteEssay,
+  getCurrentUser
 } from './services/api.js';
 
 const AdminDashboard = () => {
@@ -30,41 +30,60 @@ const AdminDashboard = () => {
   const [essays, setEssays] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const currentUser = await getCurrentUser();
+        if (currentUser.email !== 'oprahjane860@gmail.com') {
+          navigate('/signin');
+        }
+        setUser(currentUser);
+      } catch (err) {
+        navigate('/admin');
+      }
+    };
+
+    checkAdmin();
+  }, [navigate]);
+
+  useEffect(() => {
     const fetchData = async () => {
+      if (!user || user.email !== 'oprahjane860@gmail.com') return;
+
       setLoading(true);
       try {
         if (activeTab === 'tutors') {
           const data = await getTutors();
-          setTutors(data);
+          setTutors(data || []);
         } else if (activeTab === 'services') {
           const data = await getServices();
-          setServices(data);
+          setServices(data || []);
         } else if (activeTab === 'resources') {
           const data = await getResources();
-          setResources(data);
+          setResources(data || []);
         } else if (activeTab === 'essays') {
           const data = await getEssays();
-          setEssays(data);
+          setEssays(data || []);
         }
       } catch (err) {
         setError(err.message);
         if (err.response?.status === 401 || err.response?.status === 403) {
-          navigate('/admin/login');
+          navigate('/admin/signin');
         }
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchData();
-  }, [activeTab, navigate]);
+  }, [activeTab, navigate, user]);
 
   const handleDelete = async (type, id) => {
     if (!window.confirm(`Are you sure you want to delete this ${type}?`)) return;
-    
+
     try {
       switch(type) {
         case 'tutor':
@@ -90,6 +109,16 @@ const AdminDashboard = () => {
       setError(err.message);
     }
   };
+
+  if (!user || user.email !== 'oprahjane860@gmail.com') {
+    // return (
+    //   <div className="d-flex justify-content-center align-items-center vh-100">
+    //     <div className="spinner-border text-primary" role="status">
+    //       <span className="visually-hidden">Loading...</span>
+    //     </div>
+    //   </div>
+    // );
+  }
 
   return (
     <div className="d-flex min-vh-100">
@@ -146,7 +175,7 @@ const AdminDashboard = () => {
           </ul>
         </div>
       </div>
-      
+
       {/* Main Content */}
       <div className="flex-grow-1 p-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
@@ -160,12 +189,10 @@ const AdminDashboard = () => {
               Add {activeTab.charAt(0).toUpperCase() + activeTab.slice(1).slice(0, -1)}
             </Link>
           )}
-
-         
         </div>
-        
+
         {error && <div className="alert alert-danger">{error}</div>}
-        
+
         {loading ? (
           <div className="text-center py-5">
             <div className="spinner-border text-primary" role="status">
@@ -208,21 +235,9 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                 </div>
-                
-                {/* Recent Activity Section */}
-                <div className="col-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <h5>Recent Activity</h5>
-                    </div>
-                    <div className="card-body">
-                      <p>Dashboard analytics and recent activities would go here...</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
-            
+
             {activeTab === 'tutors' && (
               <div className="table-responsive">
                 <table className="table table-striped table-hover">
@@ -249,11 +264,7 @@ const AdminDashboard = () => {
                             style={{ width: '50px', height: '50px', objectFit: 'cover' }}
                           />
                         </td>
-                        <td>
-                          <Link to={`/tutors/${tutor.id}`} className="text-decoration-none">
-                            {tutor.name}
-                          </Link>
-                        </td>
+                        <td>{tutor.name}</td>
                         <td>{tutor.specialization}</td>
                         <td>{tutor.rating || 'N/A'}</td>
                         <td>
@@ -283,150 +294,9 @@ const AdminDashboard = () => {
                 </table>
               </div>
             )}
+
+            {/* Add tables for services, resources, essays here if needed */}
             
-            {activeTab === 'services' && (
-              <div className="table-responsive">
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Price Range</th>
-                      <th>Delivery Time</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {services.map(service => (
-                      <tr key={service.id}>
-                        <td>{service.id}</td>
-                        <td>
-                          <Link to={`/services/${service.id}`} className="text-decoration-none">
-                            {service.name}
-                          </Link>
-                        </td>
-                        <td>{service.description.substring(0, 50)}...</td>
-                        <td>${service.min_price} - ${service.max_price}</td>
-                        <td>{service.delivery_time} days</td>
-                        <td>
-                          <Link 
-                            to={`/admin/services/edit/${service.id}`}
-                            className="btn btn-sm btn-outline-primary me-2"
-                          >
-                            <FaEdit />
-                          </Link>
-                          <button 
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() => handleDelete('service', service.id)}
-                          >
-                            <FaTrash />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            
-            {activeTab === 'resources' && (
-              <div className="table-responsive">
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Type</th>
-                      <th>Category</th>
-                      <th>Downloads</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {resources.map(resource => (
-                      <tr key={resource.id}>
-                        <td>{resource.id}</td>
-                        <td>
-                          <Link to={`/resources/${resource.id}`} className="text-decoration-none">
-                            {resource.title}
-                          </Link>
-                        </td>
-                        <td>
-                          <span className="badge bg-info text-dark">
-                            {resource.type}
-                          </span>
-                        </td>
-                        <td>{resource.category}</td>
-                        <td>{resource.download_count || 0}</td>
-                        <td>
-                          <Link 
-                            to={`/admin/resources/edit/${resource.id}`}
-                            className="btn btn-sm btn-outline-primary me-2"
-                          >
-                            <FaEdit />
-                          </Link>
-                          <button 
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() => handleDelete('resource', resource.id)}
-                          >
-                            <FaTrash />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            
-            {activeTab === 'essays' && (
-              <div className="table-responsive">
-                <table className="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Subject</th>
-                      <th>Academic Level</th>
-                      <th>Word Count</th>
-                      <th>Rating</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {essays.map(essay => (
-                      <tr key={essay.id}>
-                        <td>{essay.id}</td>
-                        <td>
-                          <Link to={`/essays/${essay.id}`} className="text-decoration-none">
-                            {essay.title}
-                          </Link>
-                        </td>
-                        <td>{essay.subject}</td>
-                        <td>{essay.academic_level}</td>
-                        <td>{essay.word_count}</td>
-                        <td>{essay.rating || 'N/A'}</td>
-                        <td>
-                          <Link 
-                            to={`/admin/essays/edit/${essay.id}`}
-                            className="btn btn-sm btn-outline-primary me-2"
-                          >
-                            <FaEdit />
-                          </Link>
-                          <button 
-                            className="btn btn-sm btn-outline-danger"
-                            onClick={() => handleDelete('essay', essay.id)}
-                          >
-                            <FaTrash />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
           </>
         )}
       </div>

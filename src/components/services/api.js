@@ -26,6 +26,10 @@ export const deleteTutor = async (id) => {
 export const getServices = async () => {
   // Implement similar to getTutors
 };
+export const getCurrentUser = async () => {
+  // Implement similar to getTutors
+};
+
 
 export const deleteService = async (id) => {
   // Implement similar to deleteTutor
@@ -46,3 +50,4 @@ export const getEssays = async () => {
 export const deleteEssay = async (id) => {
   // Implement similar to deleteTutor
 };
+

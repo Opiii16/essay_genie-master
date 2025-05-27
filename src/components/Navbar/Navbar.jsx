@@ -6,10 +6,7 @@ import './Navbar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { 
-  
-  FaChartLine 
-} from 'react-icons/fa';
+import { FaSun, FaMoon, FaChartLine } from 'react-icons/fa';
 
 const Navbar = () => {
   const [showServices, setShowServices] = useState(false);
@@ -19,6 +16,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,6 +39,29 @@ const Navbar = () => {
       window.removeEventListener('storage', checkAuth);
     };
   }, []);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme) {
+      setIsDarkTheme(savedTheme === 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (prefersDark) {
+      setIsDarkTheme(true);
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkTheme;
+    setIsDarkTheme(newTheme);
+    const theme = newTheme ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  };
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -175,6 +196,14 @@ const Navbar = () => {
               </div>
             </form>
 
+            <button 
+              className="btn btn-light me-2" 
+              onClick={toggleTheme}
+              title="Toggle Theme"
+            >
+              {isDarkTheme ? <FaSun /> : <FaMoon />}
+            </button>
+
             {isLoggedIn ? (
               <div className="dropdown">
                 <button 
@@ -204,13 +233,12 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link to="/account-setting" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                    <i className="bi bi-gear me-2"></i>Account Settings
+                      <i className="bi bi-gear me-2"></i>Account Settings
                     </Link>
                   </li>
-
                   <li>
                     <Link to="/admin" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                    <FaChartLine className="me-2" />Admin Dashboard
+                      <FaChartLine className="me-2" />Admin Dashboard
                     </Link>
                   </li>
                   <li><hr className="dropdown-divider" /></li>

@@ -5,7 +5,7 @@ import Signin from './components/Signin';
 import Signup from './components/Signup';
 import Admindashboard from './components/Admindashboard.jsx';
 import AddTutorForm from './components/AddTutorForm';
-
+import AddServicesForm from './components/AddServicesForm';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ServicesPage from './components/Pages/ServicesPage.jsx';
@@ -56,6 +56,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/admin" element={<Admindashboard/>} />
             <Route path="/tutor-form" element={<AddTutorForm/>} />
+            <Route path="/service-form" element={<AddServicesForm/>} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/account-setting" element={<AccountSetting />} />
             <Route path="/ocean-section" element={<OceanSection/>} />

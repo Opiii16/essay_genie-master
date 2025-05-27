@@ -27,31 +27,37 @@ const AddTutorForm = () => {
     setPhoto(e.target.files[0]);
   };
 
+  const addTutor = async (data) => {
+    const payload = new FormData();
+    for (const key in data) {
+      payload.append(key, data[key]);
+    }
+    if (photo) {
+      payload.append('photo', photo);
+    }
+
+    const response = await fetch('https://your-api-url.com/tutors', {
+      method: 'POST',
+      body: payload,
+    });
+
+    return await response.json();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+    setError(null);
+
     try {
-      const formDataToSend = new FormData();
-      for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
+      const response = await addTutor(formData);
+      if (response.success) {
+        navigate('/admin/tutors');
+      } else {
+        setError(response.message || 'Failed to add tutor');
       }
-      if (photo) {
-        formDataToSend.append('tutor_photo', photo);
-      }
-
-      const response = await fetch('/api/add_tutor', {
-        method: 'POST',
-        body: formDataToSend
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add tutor');
-      }
-
-      navigate('/admin/tutors');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Failed to add tutor');
     } finally {
       setLoading(false);
     }
@@ -62,13 +68,13 @@ const AddTutorForm = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <button 
           className="btn btn-outline-secondary"
-          onClick={() => navigate('/admin/tutors')}
+          onClick={() => navigate('/admin')}
         >
           <FaArrowLeft className="me-2" />
           Back to Tutors
         </button>
         <h2>Add New Tutor</h2>
-        <div></div> {/* Empty div for spacing */}
+        <div></div>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
